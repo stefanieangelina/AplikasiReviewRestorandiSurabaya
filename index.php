@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Selecao Bootstrap Template - Index</title>
+  <title>R Review</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,14 +45,14 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="index.html">Selecao</a></h1>
+        <h1 class="text-light"><a href="index.php">R Review</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
@@ -90,9 +90,9 @@
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Selecao</span></h2>
-          <p class="animate__animated fanimate__adeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>R Review</span></h2>
+          <p class="animate__animated fanimate__adeInUp">A platform for reviewing restaurants in Surabaya.</p>
+          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Start Reviewing</a>
         </div>
       </div>
 
@@ -902,13 +902,9 @@
         <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
       </div>
       <div class="copyright">
-        &copy; Copyright <strong><span>Selecao</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>R Review</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/selecao-bootstrap-template/ -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
