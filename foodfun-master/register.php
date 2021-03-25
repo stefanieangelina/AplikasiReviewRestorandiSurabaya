@@ -1,3 +1,15 @@
+<?php
+    include('conn.php');
+    if(isset($_POST["regist"])){
+        $name = $_POST["first"]." ".$_POST["last"];
+        $email = $_POST["email"];
+        $pass = $_POST["pass"];
+        $cpass = $_POST["cpass"];
+        $alamat = $_POST["alamat"];
+        $queryinsert = "INSERT into users values('','$name','$email','$alamat','$pass')";
+        $res = mysqli_query($conn , $queryinsert);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +43,12 @@
             font-family: 'Abril Fatface', cursive;;
             font-size: 20px;
         }
+
+        @media only screen and (max-width: 700px) {
+        .formpendaftaran {
+            width: 100%;
+        }
+}
     </style>
 </head>
 <body>
@@ -69,16 +87,38 @@
                     <h1>Discover the <span class="prime-color">flavors</span><br>  
                     <span class="style-change">of <span class="prime-color">food</span>fun</span></h1> -->
                     <div class="formpendaftaran" style="text-align: left;">
-                        <form>
+                        <form method="POST">
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label>Nama Lengkap: </label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="first" class="form-control" placeholder="First name">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="last" class="form-control" placeholder="Last name">
+                                    </div>
+                            </div>
+                            </div>
                             <div class="form-group">
                               <label for="exampleInputEmail1">Email address</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                              <small id="emailHelp" class="form-text text-muted">Mohon untuk memasukkan email yang valid</small>
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
                             </div>
-                            <button type="submit" class="btn btn-warning">Login</button>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Confim Password</label>
+                                <input type="password" name="cpass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <textarea class="form-control" name="alamat" rows="4"></textarea>
+                            </div>
+                            <button type="submit" name="regist" class="btn btn-warning">Submit</button>
                         </form>
                     </div>
                 </div>

@@ -1,3 +1,30 @@
+<?php
+    include('conn.php');
+    if(isset($_POST["login"])){
+        $queryget = "SELECT * from users";
+        $res = mysqli_query($conn , $queryget);
+        $pass = false;
+        $mail = false;
+        while($row = mysqli_fetch_assoc($res)){
+            if($row['email'] == $_POST["email"]){
+                $mail = true;
+                if($row['password'] == $_POST["password"]){
+                    $pass = true;
+                }
+            }
+        }
+
+        if($mail == false){
+            echo "<script>alert('email tidak terdaftar')</script>";
+        }
+        else if($mail == true && $pass == false){
+            echo "<script>alert('Password salah')</script>";
+        }
+        else if($mail == true && $pass == true){
+            echo "<script>alert('Berhasil login')</script>";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +58,6 @@
             font-family: 'Abril Fatface', cursive;;
             font-size: 20px;
         }
-
-        @media only screen and (max-width: 700px) {
-        .formpendaftaran {
-            width: 100%;
-        }
-}
     </style>
 </head>
 <body>
@@ -75,38 +96,16 @@
                     <h1>Discover the <span class="prime-color">flavors</span><br>  
                     <span class="style-change">of <span class="prime-color">food</span>fun</span></h1> -->
                     <div class="formpendaftaran" style="text-align: left;">
-                        <form>
-                            <div class="form-group">
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label>Nama Lengkap: </label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="First name">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="Last name">
-                                    </div>
-                            </div>
-                            </div>
+                        <form method="post">
                             <div class="form-group">
                               <label for="exampleInputEmail1">Email address</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                              <small id="emailHelp" class="form-text text-muted">Mohon untuk memasukkan email yang valid</small>
+                              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Confim Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <label>Alamat</label>
-                                <textarea class="form-control" rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" name="login" class="btn btn-warning">Login</button>
                         </form>
                     </div>
                 </div>
