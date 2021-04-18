@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Mar 2021 pada 10.05
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.4.9
+-- Generation Time: Apr 18, 2021 at 10:41 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,22 @@ USE `restoran_review`;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `komentar`
+-- Table structure for table `foto`
+--
+
+DROP TABLE IF EXISTS `foto`;
+CREATE TABLE `foto` (
+  `id_foto` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `restoran_id` int(11) DEFAULT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `komentar`
 --
 
 DROP TABLE IF EXISTS `komentar`;
@@ -40,67 +55,93 @@ CREATE TABLE `komentar` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `restoran`
+-- Table structure for table `restoran`
 --
 
 DROP TABLE IF EXISTS `restoran`;
 CREATE TABLE `restoran` (
-  `id_restoran` int(10) NOT NULL,
-  `id_user` int(30) NOT NULL,
+  `id_restoran` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
   `no_tlp` int(15) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `kota` varchar(20) NOT NULL,
-  `provinsi` varchar(20) NOT NULL,
-  `rating` int(1) NOT NULL
+  `rating` int(1) NOT NULL,
+  `jumlah_org` int(11) NOT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id_user` varchar(30) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id_user` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `kota` varchar(20) NOT NULL,
-  `provinsi` varchar(20) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `foto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `nama`, `email`, `alamat`, `password`, `foto_id`) VALUES
+(1, 'Stefanie Angelina G', 'stefanieangelina.sa@gmail.com', 'kapasari 53', '$2y$10$XMEs.dxumbt.z1DP9Dh8buGd3B3QltbrqgHfxEAtjG.NMGFYii.5.', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `komentar`
+-- Indexes for table `foto`
+--
+ALTER TABLE `foto`
+  ADD PRIMARY KEY (`id_foto`);
+
+--
+-- Indexes for table `komentar`
 --
 ALTER TABLE `komentar`
   ADD PRIMARY KEY (`id_komentar`);
 
 --
--- Indeks untuk tabel `restoran`
+-- Indexes for table `restoran`
 --
 ALTER TABLE `restoran`
   ADD PRIMARY KEY (`id_restoran`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `komentar`
+-- AUTO_INCREMENT for table `foto`
+--
+ALTER TABLE `foto`
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
   MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `restoran`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `restoran`
-  MODIFY `id_restoran` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
