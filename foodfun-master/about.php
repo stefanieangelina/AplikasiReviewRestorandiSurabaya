@@ -1,3 +1,18 @@
+<?php
+    include('conn.php');
+    session_start();
+
+    $idLogin = "";
+    $namaLogin = "";
+
+    if(isset($_SESSION['idLogin'])){
+        $idLogin = $_SESSION['idLogin'];
+        $namaLogin = $_SESSION['namaLogin'];
+    } else {
+        header("location: home.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,17 +59,11 @@
                     </div>  
                     <div class="main-menu main-menu2">
                         <ul>
-                            <li class="active"><a href="index.html">home</a></li>
-                            <li><a href="about.html">about</a></li>
-                            <li><a href="menu.html">menu</a></li>
-                            <li><a href="#">blog</a>
-                                <ul class="sub-menu">
-                                    <li><a href="blog-home.html">Blog Home</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-us.html">contact</a></li>
-                            <li><a href="elements.html">Elements</a></li>
+                            <li class="active"><a href="home.php">Home</a></li>
+                            <li><a href="profile.php">Profil Saya</a></li>
+                            <li><a href="menu.php">Restoran Saya</a></li>
+                            <li><a href="#">Cari Restoran</a></li>
+                            <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
                 </div>

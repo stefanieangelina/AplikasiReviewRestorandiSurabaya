@@ -1,13 +1,24 @@
 <?php
     include('conn.php');
+    
     if(isset($_POST["regist"])){
         $name = $_POST["first"]." ".$_POST["last"];
         $email = $_POST["email"];
         $pass = $_POST["pass"];
         $cpass = $_POST["cpass"];
         $alamat = $_POST["alamat"];
-        $queryinsert = "INSERT into users values('','$name','$email','$alamat','$pass')";
-        $res = mysqli_query($conn , $queryinsert);
+
+        if($cpass == $pass){
+            $password = password_hash($pass, PASSWORD_DEFAULT);
+            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password')";
+            $res = mysqli_query($conn , $queryinsert);
+
+            if($res){
+                echo "<script>alert('Berhasil register!')</script>";
+            }
+        } else{
+            echo "<script>alert('Password dan confirm password harus sama!')</script>";
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -58,7 +69,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="index.html"><img src="assets/images/logo/logo2.png" alt="logo"></a>
+                        <a href="index.php"><img src="assets/images/logo/logo2.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -69,7 +80,7 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.html" style="color: white;">home</a></li>
+                            <li class="active"><a href="index.php" style="color: white;">home</a></li>
                         </ul>
                     </div>
                 </div>
@@ -120,6 +131,11 @@
                             </div>
                             <button type="submit" name="regist" class="btn btn-warning">Submit</button>
                         </form>
+
+                        <br/> 
+                        <p> 
+                            Did you have an account? <a href="login.php"> Login here</a>
+                        </p>    
                     </div>
                 </div>
             </div>
