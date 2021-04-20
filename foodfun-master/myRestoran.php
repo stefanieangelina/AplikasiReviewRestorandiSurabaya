@@ -8,6 +8,9 @@
     if(isset($_SESSION['idLogin'])){
         $idLogin = $_SESSION['idLogin'];
         $namaLogin = $_SESSION['namaLogin'];
+        echo '<script>';
+        echo 'var idLog = ' . $idLogin . ';';
+        echo '</script>';
     } else {
         header("location: home.php");
     }
@@ -93,13 +96,6 @@
     <section class="food-area section-padding" style="transform:translateY(-7%)">
         <div class="container">
             <div class="row">
-                <!-- <div class="col-md-5">
-                    <div class="section-top">
-                        <h3><span class="style-change">we serve</span> <br>delicious food</h3>
-                        <p class="pt-3">They're fill divide i their yielding our after have him fish on there for greater man moveth, moved Won't together isn't for fly divide mids fish firmament on net.</p>
-                    </div>
-                </div> -->
-
                 <form method="post">
                     <button type="submit" name="tambahResto" class="btn btn-primary">+ Add Restaurant</button>
                 </form> 
@@ -109,8 +105,8 @@
 
             <div class="row">
                 <div class="col-md-4 col-sm-6">
-                    <div class="single-food">
-                        <div class="food-img">
+                    <div class="single-resto" id="single-resto">
+                        <!-- <div class="food-img">
                             <img src="assets/images/food1.jpg" class="img-fluid" alt="">
                         </div>
                         <div class="food-content">
@@ -119,79 +115,10 @@
                                 <span class="style-change">$14.50</span>
                             </div>
                             <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5 mt-sm-0">
-                        <div class="food-img">
-                            <img src="assets/images/food2.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>chicken burger</h5>
-                                <span class="style-change">$9.50</span>
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5 mt-md-0">
-                        <div class="food-img">
-                            <img src="assets/images/food3.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>topu lasange</h5>
-                                <span class="style-change">$12.50</span>
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5">
-                        <div class="food-img">
-                            <img src="assets/images/food4.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>pepper potatoas</h5>
-                                <span class="style-change">$14.50</span>
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5">
-                        <div class="food-img">
-                            <img src="assets/images/food5.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>bean salad</h5>
-                                <span class="style-change">$8.50</span>
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5">
-                        <div class="food-img">
-                            <img src="assets/images/food6.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>beatball hoagie</h5>
-                                <span class="style-change">$11.50</span>
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -275,7 +202,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </footer>
     <!-- Footer Area End -->
 
-
     <!-- Javascript -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="assets/js/vendor/bootstrap-4.1.3.min.js"></script>
@@ -286,3 +212,77 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="assets/js/main.js"></script>
 </body>
 </html>
+
+<script>
+	$(document).ready(function(){
+		loadResto(idLog);
+	});
+
+    function loadResto(idLogin){
+		$("#single-resto").html('');
+		$.ajax({
+			method: "post",
+			url : "getMyResto.php",
+            data : `idLogin=${idLogin}`,
+			success : function(res){
+				var isiResto = JSON.parse(res);
+
+				if(isiResto != "none"){
+					for (let index = 0; index < isiResto.length; index++) {
+						$("#single-resto").append(`
+                            <div class="resto_image">
+								<div id="resto-image${isiResto[index][0]}" alt="" class="img-fluid"></div>
+							</div>
+                            <div class="resto-content">
+                                <div class="d-flex justify-content-between">
+                                    <h5>${isiResto[index][2]}</h5>
+                                </div>
+                                <p class="pt-3">
+                                    ${isiResto[index][4]} <br/>
+                                    ${isiResto[index][3]}
+                                </p>
+                            </div>
+                            // <div id="resto-button${isiResto[index][0]}">
+                            // </div>
+						`);
+						ambilGambar(isiResto[index][0]);
+
+						// var newElementDetail = $('<button type="submit" id="btnDetail" style="width: 99%; height:100%; background-color: red; color: white; transform: translateY(-100%)">Show Detail</button>');
+						// newElementDetail.on("click", {"idx": isiResto[index][0], "nama": isiResto[index][1]}, fungsiBtnDetail);
+						// $("#resto-button"+isiResto[index][0]).append(newElementDetail);
+					}
+				} else {
+					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
+				}
+			}
+		})
+	};
+
+    function ambilGambar(id){
+		$.ajax({
+			method : "post",
+			url : "getOneImage.php",
+			data : `idx=${id}`,
+			success : function (result) {
+				var srcGambar = JSON.parse(result);
+				var img = new Image(100,145);
+				img.src=srcGambar;
+				document.getElementById('resto-image'+id).appendChild(img); 
+			}
+		})
+	}
+</script>
+
+<!-- 
+// <div class="product-item"id="product${isiProduct[index][0]}" >
+							// 	<div class="product product_filter" >
+							// 		<div class="product_image" >
+							// 			<div id="product-image${isiProduct[index][0]}" alt="" style="margin: 5px 5% 0px; width: 90%; height: 100%"></div>
+							// 		</div>
+							// 		<div class="product_info">
+							// 			<h6 class="product_name"><a href="single.html">${isiProduct[index][1]}</a></h6>
+							// 			<div class="product_price" id="product_price${isiProduct[index][0]}"></div>
+							// 		</div>
+							// 	</div>
+							// 	<div id="product-button${isiProduct[index][0]}"> </div>
+							// </div> -->
