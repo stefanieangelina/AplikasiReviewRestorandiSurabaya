@@ -6,6 +6,8 @@
     $namaLogin = "";
     $alamatLogin = "";
     $emailLogin = "";
+    $imgSrc = "";
+    $tempSrc = "";
 
     if(isset($_SESSION['idLogin'])){
         $idLogin = $_SESSION['idLogin'];
@@ -18,6 +20,15 @@
                 $namaLogin = $row["nama"];
                 $alamatLogin = $row["alamat"];
                 $emailLogin = $row["email"];
+                $tempSrc = $row["foto_id"];
+            }
+        }
+
+        $queryget2 = "SELECT * from foto";
+        $res2 = mysqli_query($conn , $queryget2);
+        while($row = mysqli_fetch_assoc($res2)){
+            if($row["id_foto"] == $tempSrc){
+                $imgSrc = $row["nama"];
             }
         }
     } else {
@@ -105,14 +116,15 @@
     <!-- Header Area End -->
 
     <!-- Banner Area Starts -->
-    <section class="banner-area text-center" style="padding-top: 200px;">
+    <section class="banner-area text-center" style="padding-top: 100px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="halamanprofile">
-                        <div class="fotoprofil"><img src='assets/images/customer1.png' width="100px" height="100px" border-radius="50%"></div>
+                        <div class="fotoprofil"><img src="<?php echo($imgSrc) ?>" style="width:150%; height:150%; border:1px solid darkblue; border-radius:50%"></div>
                     </div>
-                    <br>
+                    <br/> <br/> <br/> 
+
                     <div class = "infouser" style="text-align: center;">
                         <form method="post">
                             <div class="form-group">

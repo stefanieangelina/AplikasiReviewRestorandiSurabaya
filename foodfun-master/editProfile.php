@@ -7,6 +7,8 @@
     $alamatLogin = "";
     $emailLogin = "";
     $passLogin = "";
+    $imgSrc = "";
+    $tempSrc = "";
 
     if(isset($_SESSION['idLogin'])){
         $idLogin = $_SESSION['idLogin'];
@@ -20,20 +22,55 @@
                 $alamatLogin = $row["alamat"];
                 $emailLogin = $row["email"];
                 $passLogin = $row["password"];
+                $tempSrc = $row["foto_id"];
+            }
+        }
+
+        $queryget2 = "SELECT * from foto";
+        $res2 = mysqli_query($conn , $queryget2);
+        while($row = mysqli_fetch_assoc($res2)){
+            if($row["id_foto"] == $tempSrc){
+                $imgSrc = $row["nama"];
             }
         }
     } else {
         header("location: home.php");
     }
 
-    if(isset($_POST["edit"])){
+
+    if(isset($_POST['edit'])){
+        if(isset($_FILES['photo'])){
+            $target_dir = "./assets/images/profile/"; // tempat file akan disimpan
+            $target_file = $target_dir.$_FILES["photo"]["name"]; 
+            // value dari $target_dir + nama file yang diupload, hasil nya akan disimpan ke dalam $target_file.
+            // $_FILES mengambil nama dari file yang di submit
+            move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file); 
+            // gambar di simpan di temp, baru dipindah ke $target_dir
+
+            $nama = "assets/images/profile/" . $_FILES["photo"]["name"];
+            $stmt = $conn->prepare("UPDATE foto SET nama = ? WHERE id_foto = ?");
+            $stmt->bind_param("si", $namaFile, $idFoto); // ('tipe data', parameters)
+            // s --> string (tipe data langsung di jejer tanpa spasi) 
+            // ('ss', $nama, $username) --> string, string
+            $namaFile = $nama;
+            $idFoto = $tempSrc;
+            $stmt->execute();
+        }
+        
         $name = $_POST["nama"];
         $pass = $_POST["pass"];
         $cpass = $_POST["cpass"];
         $alamat = $_POST["alamat"];
 
-        if($pass=""){
-            echo "<script>alert('Password tidak boleh kosong!')</script>";
+        if($pass == ""){
+            $queryupdate = "UPDATE users SET nama='$name', 
+                            alamat='$alamat'
+                            WHERE id_user = $idLogin";
+            $res = mysqli_query($conn , $queryupdate);
+
+            if($res){
+            echo "<script>alert('Berhasil mengedit profile!')</script>";
+            }   
         } else {
             if($cpass == $pass){
                 $password = password_hash($pass, PASSWORD_DEFAULT);
@@ -49,7 +86,7 @@
                 echo "<script>alert('Password dan confirm password harus sama!')</script>";
             }
         }
-    }
+    }      
 ?>
 
 <!DOCTYPE html>
@@ -128,17 +165,24 @@
     <!-- Header Area End -->
 
     <!-- Banner Area Starts -->
-    <section class="banner-area text-center" style="padding-top: 200px;">
+    <section class="banner-area text-center" style="padding-top: 100px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="halamanprofile">
-                        <div class="fotoprofil"><img src='assets/images/customer1.png' width="100px" height="100px" border-radius="50%"></div>
+                        <div class="fotoprofil"><img src="<?php echo($imgSrc) ?>" style="width:150%; height:150%; border:1px solid darkblue; border-radius:50%"></div>
                     </div>
-                    <br>
+                    <br/> <br/> <br/> 
+
                     <div class = "infouser" style="text-align: center;">
-                        <form method="post">
+                        <form method="post" enctype='multipart/form-data'>
                             <div class="form-group">
+                                <input type='file' name='photo' style="transform:translateX(20%)"> <br/>
+                                <small id="uploadgambarHint"> <center>
+                                    Make sure the image and the format (.jpg / .png) is correct! 
+                                </center></small>
+                                <br/> <br/>
+
                                 <label style="color: orange;">Name : </label>
                                 <input type="text" value="<?= $namaLogin ?>" name="nama" class="form-control"><br/>
                                 
@@ -149,10 +193,12 @@
                                 <input type="text" value="<?= $alamatLogin ?>" name="alamat" class="form-control"><br/>                              
                                 
                                 <label style="color: orange;">Password : </label>
-                                <input type="password" value="<?= $passLogin ?>" name="pass" class="form-control"><br/>  
+                                <input type="password" value="" name="pass" class="form-control">
+                                <small id="passHint">If you didn't want change the password, leave it blank </small> <br/><br/>
                                 
                                 <label style="color: orange;">Confirm Password : </label>
-                                <input type="password" value="<?= $passLogin ?>" name="cpass" class="form-control"><br/>  
+                                <input type="password" value="" name="cpass" class="form-control">
+                                <small id="confPassHint">If you didn't want change the password, leave it blank </small> <br/><br/>
                                 
                                 <input type="submit" class="btn btn-warning" value="     Edit Profile     " name="edit">
                             </div>
@@ -162,30 +208,5 @@
             </div>
         </div>
     </section>
-    <!-- Banner Area End -->
-
-    <!-- <div class="halamanprofile">
-        <div class="fotoprofil"><img src='assets/images/customer1.png' width="100px" height="100px" border-radius="50%"></div>
-    </div>
-    <div class = "infouser">
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Nama : </label>
-                <label style="color: black;">Erland Goeswanto (Contoh)</label>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Email : </label>
-                <label style="color: black;">egoeswanto@gmail.com</label>
-            </div>
-            <div class="form-group">
-                <label>Alamat : </label>
-                <label style="color: black;">Jalan Ngagel Madya VIII no 21 , Gubeng , Surabaya</label>
-            </div>
-            <div class="form-group">
-                <label> No telp : </label>
-                <label style="color: black;"> +6289607880549 </label>
-            </div>
-        </form>
-    </div> -->
 </body>
 </html>
