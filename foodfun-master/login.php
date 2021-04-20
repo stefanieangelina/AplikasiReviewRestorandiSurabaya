@@ -116,6 +116,11 @@
                             </div>
                             <button type="submit" name="login" class="btn btn-warning">Login</button>
                         </form>
+
+                        <br/> <br/>
+                        <p> 
+                            Didn't have an account? <a href="register.php"> Register now!</a>
+                        </p>  
                     </div>
                 </div>
             </div>
