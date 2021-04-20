@@ -9,11 +9,28 @@
         $alamat = $_POST["alamat"];
 
         if($cpass == $pass){
+            // ambil foto id terakhir + 1
+            $queryget = "SELECT * from foto";
+            $res = mysqli_query($conn , $queryget);
+            $fotoID = 1;
+            while($row = mysqli_fetch_assoc($res)){
+                $fotoID = 1 + $row["id_foto"];
+            }
+
             $password = password_hash($pass, PASSWORD_DEFAULT);
-            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password')";
+            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password', $fotoID)";
             $res = mysqli_query($conn , $queryinsert);
 
             if($res){
+                $queryget = "SELECT * from users";
+                $res3 = mysqli_query($conn , $queryget);
+                $userId = 0;
+                while($row = mysqli_fetch_assoc($res3)){
+                    $userId = $row["id_user"];
+                }
+
+                $queryinsert2 = "INSERT into foto values('', 'assets/images/customer1.png', '$userId', '', '1')";
+                $res2 = mysqli_query($conn , $queryinsert2);
                 echo "<script>alert('Berhasil register!')</script>";
             }
         } else{
