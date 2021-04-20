@@ -68,8 +68,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1><i>Our Menu</i></h1>
-                    <p class="pt-2"><i>Beast kind form divide night above let moveth bearing darkness.</i></p>
+                    <h1><i>My Restaurant</i></h1>
+                    <p class="pt-2"><i>Add your own restaurant</i></p>
                 </div>
             </div>
         </div>
