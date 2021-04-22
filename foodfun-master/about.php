@@ -61,8 +61,8 @@
                         <ul>
                             <li class="active"><a href="home.php">Home</a></li>
                             <li><a href="profile.php">Profil Saya</a></li>
-                            <li><a href="menu.php">Restoran Saya</a></li>
-                            <li><a href="#">Cari Restoran</a></li>
+                            <li><a href="restoranSaya.php">Restoran Saya</a></li>
+                            <li><a href="findRestoran.php">Cari Restoran</a></li>
                             <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>

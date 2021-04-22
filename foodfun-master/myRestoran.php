@@ -84,8 +84,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1><i>My Restaurant</i></h1>
-                    <p class="pt-2"><i>Add your own restaurant</i></p>
+                    <h1><i>Restoran Saya</i></h1>
+                    <p class="pt-2"><i>Tambahkan restoran milikmu</i></p>
                 </div>
             </div>
         </div>
@@ -93,11 +93,11 @@
     <!-- Banner Area End -->
 
     <!-- Food Area starts -->
-    <section class="food-area section-padding" style="transform:translateY(-7%)">
+    <section class="food-area section-padding">
         <div class="container">
             <div class="row">
                 <form method="post">
-                    <button type="submit" name="tambahResto" class="btn btn-primary">+ Add Restaurant</button>
+                    <button type="submit" name="tambahResto" class="btn btn-primary">+ Tambahkan Restaurant</button>
                 </form> 
             </div>
 
@@ -230,22 +230,28 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
 						$("#single-resto").append(`
-                            <div class="resto_image">
-								<div id="resto-image${isiResto[index][0]}" alt="" class="img-fluid"></div>
-							</div>
-                            <div class="resto-content">
-                                <div class="d-flex justify-content-between">
-                                    <h5>${isiResto[index][2]}</h5>
+                            <div class="card">
+                                <div class="resto_image">
+                                    <div id="resto-image${isiResto[index][0]}" alt="" class="img-fluid"></div>
                                 </div>
-                                <p class="pt-3">
-                                    ${isiResto[index][4]} <br/>
-                                    ${isiResto[index][3]}
-                                </p>
+                                <h5 class="card-header">${isiResto[index][2]}</h5>
+                                <div class="card-body" >
+                                    <b class="card-title">
+                                        &#xf005;
+                                        ${isiResto[index][6]}
+                                    </b>
+                                    <p> ${isiResto[index][5]} <br/>
+                                        ${isiResto[index][4]}   </p>
+                                    <a href="#" class="btn btn-success">Detail Restoran</a>
+                                </div>
                             </div>
                             // <div id="resto-button${isiResto[index][0]}">
                             // </div>
+
+                            <br/>
 						`);
 						ambilGambar(isiResto[index][0]);
+                    
 
 						// var newElementDetail = $('<button type="submit" id="btnDetail" style="width: 99%; height:100%; background-color: red; color: white; transform: translateY(-100%)">Show Detail</button>');
 						// newElementDetail.on("click", {"idx": isiResto[index][0], "nama": isiResto[index][1]}, fungsiBtnDetail);

@@ -16,6 +16,7 @@
         $nama = $_POST['namaResto'];
         $telp = $_POST['telpResto'];
         $alamat = $_POST['alamatResto'];
+        $deskripsi = $_POST['deskripsiResto'];
         
         // ambil foto id terakhir + 1
         $queryget = "SELECT * from foto";
@@ -25,7 +26,7 @@
             $fotoID = 1 + $row["id_foto"];
         }
 
-        $queryinsert = "INSERT into restoran values('', '$idLogin', '$nama', '$telp', '$alamat', '0', '0', $fotoID, '1')";
+        $queryinsert = "INSERT into restoran values('', '$idLogin', '$nama', '$deskripsi', '$telp', '$alamat', '0', '0', $fotoID, '1')";
         $res = mysqli_query($conn , $queryinsert);
 
         if($res){
@@ -114,7 +115,7 @@
                         <ul>
                             <li><a href="home.php">Home</a></li>
                             <li><a href="profile.php">Profil Saya</a></li>
-                            <li class="active"><a href="#">Restoran Saya</a></li>
+                            <li><a href="myRestoran.php">Restoran Saya</a></li>
                             <li><a href="findRestoran.php">Cari Restoran</a></li>
                             <li><a href="index.php">Logout</a></li>
                         </ul>
@@ -141,12 +142,16 @@
                             </div>
                             <div class="form-group">
                                 <label>Alamat : </label>
-                                <textarea class="form-control" name="alamatResto" rows="4"></textarea>
+                                <textarea class="form-control" name="alamatResto" rows="2"></textarea>
                             </div>
                             <div class="form-group">
                               <label for="nolbl">Telepon Restoran : </label>
                               <input input type = "number" name="telpResto" class="form-control">
-                            </div> <br/>
+                            </div> 
+                            <div class="form-group">
+                                <label>Deskripsi : </label>
+                                <textarea class="form-control" name="deskripsiResto" rows="4"></textarea>
+                            </div><br/>
 
                             Foto Restoran : 
                             <input type='file' name='photo' style="transform:translateX(20%)" required> <br/>
