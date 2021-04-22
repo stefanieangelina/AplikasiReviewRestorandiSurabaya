@@ -1,3 +1,18 @@
+<?php
+    include('conn.php');
+    session_start();
+
+    $idLogin = "";
+    $namaLogin = "";
+
+    if(isset($_SESSION['idLogin'])){
+        $idLogin = $_SESSION['idLogin'];
+        $namaLogin = $_SESSION['namaLogin'];
+    } else {
+        header("location: home.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +48,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="logo"></a>
+                        <a href="#"><img src="assets/images/logo/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -44,10 +59,11 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.html">Home</a></li>
-                            <li><a href="about.html">Profil Saya</a></li>
-                            <li><a href="menu.html">Restoran Saya</a></li>
-                            <li><a href="about.html">Cari Restoran</a></li>
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="profile.php">Profil Saya</a></li>
+                            <li><a href="myRestoran.php">Restoran Saya</a></li>
+                            <li><a href="findRestoran.php">Cari Restoran</a></li>
+                            <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
                 </div>

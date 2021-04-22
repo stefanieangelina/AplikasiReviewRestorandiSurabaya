@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="logo"></a>
+                        <a href="index.php"><img src="assets/images/logo/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -44,7 +44,7 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="login.html">Login</a></li>
+                            <li class="active"><a href="login.php">Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         <h3><span class="style-change">welcome</span> <br>to food fun</h3>
                         <p class="pt-3">Temukan dan review restoran di Surabaya , buat akun sekarang dan mulai daftar kan restoran mu dan review resotran lain.</p>
                         <p></p>
-                        <a href="#" class="template-btn mt-3">Buat Akun</a>
+                        <a href="register.php" class="template-btn mt-3">Buat Akun</a>
                     </div>
                 </div>
             </div>

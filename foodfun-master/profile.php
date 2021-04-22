@@ -1,3 +1,45 @@
+<?php
+    include('conn.php');
+    session_start();
+
+    $idLogin = "";
+    $namaLogin = "";
+    $alamatLogin = "";
+    $emailLogin = "";
+    $imgSrc = "";
+    $tempSrc = "";
+
+    if(isset($_SESSION['idLogin'])){
+        $idLogin = $_SESSION['idLogin'];
+
+        $queryget = "SELECT * from users";
+        $res = mysqli_query($conn , $queryget);
+
+        while($row = mysqli_fetch_assoc($res)){
+            if($row["id_user"] == $idLogin){
+                $namaLogin = $row["nama"];
+                $alamatLogin = $row["alamat"];
+                $emailLogin = $row["email"];
+                $tempSrc = $row["foto_id"];
+            }
+        }
+
+        $queryget2 = "SELECT * from foto";
+        $res2 = mysqli_query($conn , $queryget2);
+        while($row = mysqli_fetch_assoc($res2)){
+            if($row["id_foto"] == $tempSrc){
+                $imgSrc = $row["nama"];
+            }
+        }
+    } else {
+        header("location: home.php");
+    }
+
+    if(isset($_POST["btnEdit"])){
+        header("location: editProfile.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,16 +96,17 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="logo"></a>
+                        <a href="home.php"><img src="assets/images/logo/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
                     <div class="main-menu">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">Profil Saya</a></li>
-                            <li><a href="menu.html">Restoran Saya</a></li>
-                            <li><a href="about.html">Cari Restoran</a></li>
+                            <li class="active"><a href="home.php">Home</a></li>
+                            <li><a href="#">Profil Saya</a></li>
+                            <li><a href="myRestoran.php">Restoran Saya</a></li>
+                            <li><a href="findRestoran.php">Cari Restoran</a></li>
+                            <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,27 +116,28 @@
     <!-- Header Area End -->
 
     <!-- Banner Area Starts -->
-    <section class="banner-area text-center" style="padding-top: 200px;">
+    <section class="banner-area text-center" style="padding-top: 100px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="halamanprofile">
-                        <div class="fotoprofil"><img src='assets/images/customer1.png' width="100px" height="100px" border-radius="50%"></div>
+                        <div class="fotoprofil"><img src="<?php echo($imgSrc) ?>" style="width:150%; height:150%; border:1px solid darkblue; border-radius:50%"></div>
                     </div>
-                    <br>
+                    <br/> <br/> <br/> 
+
                     <div class = "infouser" style="text-align: center;">
-                        <form>
+                        <form method="post">
                             <div class="form-group">
-                                <label style="color: orange;">Erland Goeswanto (Contoh)</label>
+                                <label style="color: orange;">Name : <?= $namaLogin ?></label>
                             </div>
                             <div class="form-group">
-                                <label style="color: orange;">egoeswanto@gmail.com</label>
+                                <label style="color: orange;">Email : <?= $emailLogin ?></label>
                             </div>
                             <div class="form-group">
-                                <label style="color: orange;">Jalan Ngagel Madya VIII no 21 , Gubeng , Surabaya</label>
+                                <label style="color: orange;">Address : <?= $alamatLogin ?></label>
                             </div>
                             <div class="form-group">
-                                <label style="color: orange;"> +6289607880549 </label>
+                                <button type="submit" name="btnEdit" class="btn btn-warning">Edit Profile</button>
                             </div>
                         </form>
                     </div>

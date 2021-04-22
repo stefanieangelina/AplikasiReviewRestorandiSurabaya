@@ -1,27 +1,36 @@
 <?php
     include('conn.php');
+    session_start();
+
     if(isset($_POST["login"])){
         $queryget = "SELECT * from users";
         $res = mysqli_query($conn , $queryget);
         $pass = false;
         $mail = false;
+        $idLogin = "";
+        $namaLogin = "";
+
         while($row = mysqli_fetch_assoc($res)){
-            if($row['email'] == $_POST["email"]){
+            if($row["email"] == $_POST["email"]){
                 $mail = true;
-                if($row['password'] == $_POST["password"]){
+                if(password_verify($_POST["password"], $row["password"]) == true){
                     $pass = true;
-                }
+                    $idLogin = $row["id_user"];
+                    $namaLogin = $row["nama"];
+                } 
             }
         }
 
         if($mail == false){
-            echo "<script>alert('email tidak terdaftar')</script>";
+            echo "<script>alert('Email tidak terdaftar!')</script>";
         }
         else if($mail == true && $pass == false){
-            echo "<script>alert('Password salah')</script>";
+            echo "<script>alert('Password salah!')</script>";
         }
         else if($mail == true && $pass == true){
-            echo "<script>alert('Berhasil login')</script>";
+            $_SESSION["idLogin"] = $idLogin;
+            $_SESSION["namaLogin"] = $namaLogin;
+            header("location: home.php");
         }
     }
 ?>
@@ -67,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="index.html"><img src="assets/images/logo/logo2.png" alt="logo"></a>
+                        <a href="index.php"><img src="assets/images/logo/logo2.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -78,7 +87,7 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.html" style="color: white;">home</a></li>
+                            <li class="active"><a href="index.php" style="color: white;">home</a></li>
                         </ul>
                     </div>
                 </div>
@@ -107,6 +116,11 @@
                             </div>
                             <button type="submit" name="login" class="btn btn-warning">Login</button>
                         </form>
+
+                        <br/> <br/>
+                        <p> 
+                            Didn't have an account? <a href="register.php"> Register now!</a>
+                        </p>  
                     </div>
                 </div>
             </div>
