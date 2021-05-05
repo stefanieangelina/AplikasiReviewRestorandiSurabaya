@@ -63,6 +63,9 @@
                             <li><a href="profile.php">Profil Saya</a></li>
                             <li><a href="myRestoran.php">Restoran Saya</a></li>
                             <li><a href="findRestoran.php">Cari Restoran</a></li>
+                            <?php if($_SESSION["role"] == "admin") { ?>
+                                <li><a href="findRestoran.php">Laporan</a></li>
+                            <?php } ?>
                             <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
