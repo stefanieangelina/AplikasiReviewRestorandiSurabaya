@@ -106,19 +106,9 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <div class="single-resto" id="single-resto">
-                        <!-- <div class="food-img">
-                            <img src="assets/images/food1.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Mexican Eggrolls</h5>
-                                <span class="style-change">$14.50</span>
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div> -->
+                        
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -220,17 +210,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     function loadResto(idLogin){
 		$("#single-resto").html('');
+        
 		$.ajax({
 			method: "post",
-			url : "getMyResto.php",
-            data : `idLogin=${idLogin}`,
-			success : function(res){
-				var isiResto = JSON.parse(res);
+			url: "getMyResto.php",
+            data: `idLogin=${idLogin}`,
+			success: function(res){
+                var isiResto = JSON.parse(JSON.stringify(res)); 
+                console.log(isiResto.length);
 
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
 						$("#single-resto").append(`
-                            <div class="card">
+                            <div class="card" id="resto${isiResto[index][0]}">
                                 <div class="resto_image">
                                     <div id="resto-image${isiResto[index][0]}" alt="" class="img-fluid"></div>
                                 </div>
@@ -241,7 +233,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                         ${isiResto[index][6]}
                                     </b>
                                     <p> ${isiResto[index][5]} <br/>
-                                        ${isiResto[index][4]}   </p>
+                                        ${isiResto[index][4]} 
+                                    </p>
                                     <a href="#" class="btn btn-success">Detail Restoran</a>
                                 </div>
                             </div>
@@ -251,16 +244,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             <br/>
 						`);
 						ambilGambar(isiResto[index][0]);
-                    
-
-						// var newElementDetail = $('<button type="submit" id="btnDetail" style="width: 99%; height:100%; background-color: red; color: white; transform: translateY(-100%)">Show Detail</button>');
-						// newElementDetail.on("click", {"idx": isiResto[index][0], "nama": isiResto[index][1]}, fungsiBtnDetail);
-						// $("#resto-button"+isiResto[index][0]).append(newElementDetail);
 					}
 				} else {
 					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
 				}
-			}
+			},  
+            failure: function () {
+                alert("salah");
+            },
+            error: function () {
+                alert("nothing");
+            }
 		})
 	};
 
