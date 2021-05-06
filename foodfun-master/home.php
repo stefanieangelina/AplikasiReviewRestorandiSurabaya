@@ -63,6 +63,9 @@
                             <li><a href="profile.php">Profil Saya</a></li>
                             <li><a href="myRestoran.php">Restoran Saya</a></li>
                             <li><a href="findRestoran.php">Cari Restoran</a></li>
+                            <?php if($_SESSION["role"] == "admin") { ?>
+                                <li><a href="findRestoran.php">Laporan</a></li>
+                            <?php } ?>
                             <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
@@ -86,100 +89,21 @@
     </section>
     <!-- Banner Area End -->
 
-     <!-- Food Area starts -->
-     <section class="food-area section-padding">
+    <!-- Food Area starts -->
+    <section class="food-area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
                     <div class="section-top">
-                        <h3><span class="style-change">Dekat</span> <br>Dengan Kamu</h3>
+                        <h3><span class="style-change">Restaurant</h3>
                         <p class="pt-3">They're fill divide i their yielding our after have him fish on there for greater man moveth, moved Won't together isn't for fly divide mids fish firmament on net.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-6">
-                    <div class="single-food">
-                        <div class="food-img">
-                            <img src="assets/images/food1.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Nama Restoran</h5>
-                                <!-- <span class="style-change">$14.50</span> -->
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5 mt-sm-0">
-                        <div class="food-img">
-                            <img src="assets/images/food2.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Nama Restoran</h5>
-                                <!-- <span class="style-change">$9.50</span> -->
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5 mt-md-0">
-                        <div class="food-img">
-                            <img src="assets/images/food3.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Nama Restoran</h5>
-                                <!-- <span class="style-change">$12.50</span> -->
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5">
-                        <div class="food-img">
-                            <img src="assets/images/food4.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Nama Restoran</h5>
-                                <!-- <span class="style-change">$14.50</span> -->
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5">
-                        <div class="food-img">
-                            <img src="assets/images/food5.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Nama Restoran</h5>
-                                <!-- <span class="style-change">$8.50</span> -->
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-food mt-5">
-                        <div class="food-img">
-                            <img src="assets/images/food6.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="food-content">
-                            <div class="d-flex justify-content-between">
-                                <h5>Nama Restoran</h5>
-                                <!-- <span class="style-change">$11.50</span> -->
-                            </div>
-                            <p class="pt-3">Face together given moveth divided form Of Seasons that fruitful.</p>
-                        </div>
+                    <div class="single-resto" id="single-resto">
+                        
                     </div>
                 </div>
             </div>
@@ -285,5 +209,75 @@
             </div>
         </div>
     </section>
+
+    
+    <!-- Javascript -->
+    <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="assets/js/vendor/bootstrap-4.1.3.min.js"></script>
+    <script src="assets/js/vendor/wow.min.js"></script>
+    <script src="assets/js/vendor/owl-carousel.min.js"></script>
+    <script src="assets/js/vendor/jquery.datetimepicker.full.min.js"></script>
+    <script src="assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
+
+<script>
+	$(document).ready(function(){
+		loadResto();
+	});
+
+    function loadResto(){
+		$("#single-resto").html('');
+		$.ajax({
+			method: "post",
+			url : "showRestoran.php",
+			success : function(res){
+				var isiResto = JSON.parse(res);
+
+				if(isiResto != "none"){
+					for (let index = 0; index < isiResto.length; index++) {
+						$("#single-resto").append(`
+                            <div class="food-img">
+                                <img src="resto-image${isiResto[index][0]}" class="img-fluid" alt="">
+                            </div>
+                            <div class="food-content">
+                                <div class="d-flex justify-content-between">
+                                    <h5>${isiResto[index][2]}</h5>
+                                    <!-- <span class="style-change">$14.50</span> -->
+                                </div>
+                                <p class="pt-3">
+                                    ${isiResto[index][6]} <br/>
+                                    ${isiResto[index][5]} <br/>
+                                    ${isiResto[index][4]} <br/>
+                                </p>
+                            </div>
+						`);
+						ambilGambar(isiResto[index][0]);
+                    
+
+						// var newElementDetail = $('<button type="submit" id="btnDetail" style="width: 99%; height:100%; background-color: red; color: white; transform: translateY(-100%)">Show Detail</button>');
+						// newElementDetail.on("click", {"idx": isiResto[index][0], "nama": isiResto[index][1]}, fungsiBtnDetail);
+						// $("#resto-button"+isiResto[index][0]).append(newElementDetail);
+					}
+				} else {
+					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
+				}
+			}
+		})
+	};
+
+    function ambilGambar(id){
+		$.ajax({
+			method : "post",
+			url : "getOneImage.php",
+			data : `idx=${id}`,
+			success : function (result) {
+				var srcGambar = JSON.parse(result);
+				var img = new Image(100,145);
+				img.src=srcGambar;
+				document.getElementById('resto-image'+id).appendChild(img); 
+			}
+		})
+	}
+</script>

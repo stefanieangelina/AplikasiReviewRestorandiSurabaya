@@ -9,6 +9,7 @@
         $mail = false;
         $idLogin = "";
         $namaLogin = "";
+        $roleLogin = "";
 
         while($row = mysqli_fetch_assoc($res)){
             if($row["email"] == $_POST["email"]){
@@ -17,6 +18,7 @@
                     $pass = true;
                     $idLogin = $row["id_user"];
                     $namaLogin = $row["nama"];
+                    $roleLogin = $row["role"];
                 } 
             }
         }
@@ -30,6 +32,7 @@
         else if($mail == true && $pass == true){
             $_SESSION["idLogin"] = $idLogin;
             $_SESSION["namaLogin"] = $namaLogin;
+            $_SESSION["role"] = $roleLogin;
             header("location: home.php");
         }
     }
