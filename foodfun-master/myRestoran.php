@@ -66,10 +66,15 @@
                     </div>  
                     <div class="main-menu main-menu2">
                         <ul>
-                            <li><a href="home.php">Home</a></li>
-                            <li><a href="profile.php">Profil Saya</a></li>
-                            <li class="active"><a href="#">Restoran Saya</a></li>
+                            <li class="active"><a href="#">Home</a></li>
                             <li><a href="findRestoran.php">Cari Restoran</a></li>
+                            <?php if($_SESSION["role"] == "user") { ?>
+                                <li><a href="myRestoran.php">Restoran Saya</a></li>
+                            <?php } ?>
+                            <?php if($_SESSION["role"] == "admin") { ?>
+                                <li><a href="laporan.php">Laporan</a></li>
+                            <?php } ?>
+                            <li><a href="profile.php">Profil Saya</a></li>
                             <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
@@ -216,8 +221,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			url: "getMyResto.php",
             data: `idLogin=${idLogin}`,
 			success: function(res){
-                var isiResto = JSON.parse(JSON.stringify(res)); 
-                console.log(isiResto.length);
+                var isiResto = JSON.parse(res); 
+                console.log(isiResto.result);
 
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
