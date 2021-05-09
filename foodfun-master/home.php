@@ -233,27 +233,48 @@
 		$("#single-resto").html('');
 		$.ajax({
 			method: "post",
-			url : "showRestoran.php",
+			url : "showRestoran_assoc.php",
 			success : function(res){
 				var isiResto = JSON.parse(res);
 
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
+                        let reviews = ``;
+                        if (isiResto[index].ulasans !== null) {                            
+                            ulasans = isiResto[index].ulasans.split('#_#');
+                            namas = isiResto[index].namas.split('#_#');
+                            for (let uIndex = 0; uIndex < ulasans.length; uIndex++) {
+                                reviews += `
+                                    <div>
+                                        ${namas[uIndex]}: ${ulasans[uIndex]}
+                                    </div>
+                                `;
+                            }
+                        }
 						$("#single-resto").append(`
                             <div class="food-img">
-                                <img src="resto-image${isiResto[index][0]}" class="img-fluid" alt="">
+                                <img src="resto-image${isiResto[index]['id_restoran']}" class="img-fluid" alt="">
                             </div>
                             <div class="food-content">
                                 <div class="d-flex justify-content-between">
-                                    <h5>${isiResto[index][2]}</h5>
+                                    <h5>${isiResto[index]['nama']}</h5>
                                     <!-- <span class="style-change">$14.50</span> -->
                                 </div>
                                 <p class="pt-3">
-                                    ${isiResto[index][6]} <br/>
-                                    ${isiResto[index][5]} <br/>
-                                    ${isiResto[index][4]} <br/>
+                                    ${isiResto[index]['rating']} <br/>
+                                    ${isiResto[index]['alamat']} <br/>
+                                    ${isiResto[index]['no_tlp']} <br/>
                                 </p>
                             </div>
+                            ${reviews}
+                            <div class="ulasan-form">
+                                <form action="submitUlasan.php" method="post">
+                                    <input type="hidden" name="id_restoran" value="${isiResto[index]['id_restoran']}">
+                                    <textarea placeholder="Isi Ulasan" name="ulasan" cols="30" rows="10"></textarea>
+                                    <button type="submit">Submit Ulasan</button>
+                                </form>
+                            </div>
+
 						`);
 						ambilGambar(isiResto[index][0]);
                     

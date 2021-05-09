@@ -18,9 +18,10 @@
             }
 
             $password = password_hash($pass, PASSWORD_DEFAULT);
-            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password', $fotoID, 'user')";
+            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password', $fotoID)";
+            // , 'user'
             $res = mysqli_query($conn , $queryinsert);
-
+            
             if($res){
                 $queryget = "SELECT * from users";
                 $res3 = mysqli_query($conn , $queryget);
@@ -32,6 +33,9 @@
                 $queryinsert2 = "INSERT into foto values('', 'assets/images/customer1.png', '$userId', '', '1')";
                 $res2 = mysqli_query($conn , $queryinsert2);
                 echo "<script>alert('Berhasil register!')</script>";
+            } else {
+                echo mysqli_error($conn);
+                die();
             }
         } else{
             echo "<script>alert('Password dan confirm password harus sama!')</script>";
