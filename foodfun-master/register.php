@@ -18,7 +18,7 @@
             }
 
             $password = password_hash($pass, PASSWORD_DEFAULT);
-            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password', $fotoID)";
+            $queryinsert = "INSERT into users values('', '$name', '$email', '$alamat', '$password', $fotoID, 'user')";
             // , 'user'
             $res = mysqli_query($conn , $queryinsert);
             

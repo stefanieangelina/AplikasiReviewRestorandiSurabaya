@@ -9,7 +9,7 @@
         $idLogin = $_SESSION['idLogin'];
         $namaLogin = $_SESSION['namaLogin'];
     } else {
-        header("location: home.php");
+        header("location: index.php");
     }
 ?>
 
@@ -277,11 +277,6 @@
 
 						`);
 						ambilGambar(isiResto[index][0]);
-                    
-
-						// var newElementDetail = $('<button type="submit" id="btnDetail" style="width: 99%; height:100%; background-color: red; color: white; transform: translateY(-100%)">Show Detail</button>');
-						// newElementDetail.on("click", {"idx": isiResto[index][0], "nama": isiResto[index][1]}, fungsiBtnDetail);
-						// $("#resto-button"+isiResto[index][0]).append(newElementDetail);
 					}
 				} else {
 					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
@@ -297,7 +292,7 @@
 			data : `idx=${id}`,
 			success : function (result) {
 				var srcGambar = JSON.parse(result);
-				var img = new Image(100,145);
+				var img = new Image(348,225);
 				img.src=srcGambar;
 				document.getElementById('resto-image'+id).appendChild(img); 
 			}

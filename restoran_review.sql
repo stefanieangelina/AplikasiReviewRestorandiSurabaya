@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2021 at 07:13 AM
+-- Generation Time: May 13, 2021 at 05:20 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -51,7 +51,9 @@ INSERT INTO `foto` (`id_foto`, `nama`, `user_id`, `restoran_id`, `status`) VALUE
 (6, 'assets/images/resto/15.jpg', 0, 4, 1),
 (7, 'assets/images/resto/17.jpg', 0, 5, 1),
 (8, 'assets/images/resto/17.jpg', 0, 6, 1),
-(9, 'assets/images/resto/1.jpg', 0, 7, 1);
+(9, 'assets/images/resto/1.jpg', 0, 7, 1),
+(10, 'assets/images/resto/18.jpg', 0, 8, 1),
+(11, 'assets/images/resto/18.jpg', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -92,12 +94,7 @@ CREATE TABLE `restoran` (
 --
 
 INSERT INTO `restoran` (`id_restoran`, `user_id`, `nama`, `deskripsi`, `no_tlp`, `alamat`, `rating`, `jumlah_org`, `foto_id`, `status`) VALUES
-(1, 1, 'nama resto', 'dekripsi resto', 895291345, 'alamat resto', 0, 0, 3, 1),
-(2, 1, '', '', 895291345, 'a', 0, 0, 4, 1),
-(3, 1, 'aaa', '', 895291345, 'aaa', 0, 0, 5, 1),
-(4, 1, 'aaa', '', 895291345, 'aaa', 0, 0, 6, 1),
-(5, 1, 'aaaa', '', 0, 'aaaa', 0, 0, 7, 1),
-(6, 1, 'nama resto', 'desk resto', 895291345, 'alamat resto', 0, 0, 9, 1);
+(1, 2, 'a', 'a', 8569, 'a', 0, 0, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -112,16 +109,17 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `foto_id` int(11) NOT NULL
+  `foto_id` int(11) NOT NULL,
+  `role` varchar(5) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `nama`, `email`, `alamat`, `password`, `foto_id`) VALUES
-(1, 'Stefanie Angelina Gunarto', 'stefanieangelina.sa@gmail.com', 'kapasari 50', '$2y$10$Cj83oEAdlXpPgRG2ikE09ODZk9V6GMx.rclpbqr2/K/QD5mB8oGfG', 1),
-(2, 'stefanie angelina', 'stefanie1@mhs.stts.edu', 'Kapasari 3', '$2y$10$tNDJbIXbvVUeakselvEIOeHtp.J0LYHsOeddH3W1vcLl4jbmf8i1G', 2);
+INSERT INTO `users` (`id_user`, `nama`, `email`, `alamat`, `password`, `foto_id`, `role`) VALUES
+(1, 'Admin Stefanie', 'admin.stefanie@gmail.com', 'kapasari 50', '$2y$10$d3InjCeGRznJ6lV0rDxc5OXdwHoORC1jXI7dBwo4EncaAl8lgsYwa', 1, 'admin'),
+(2, 'stefanie angelina', 'stefanie1@mhs.stts.edu', 'Kapasari 3', '$2y$10$tNDJbIXbvVUeakselvEIOeHtp.J0LYHsOeddH3W1vcLl4jbmf8i1G', 2, 'user');
 
 --
 -- Indexes for dumped tables
@@ -159,7 +157,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `komentar`
@@ -171,7 +169,7 @@ ALTER TABLE `komentar`
 -- AUTO_INCREMENT for table `restoran`
 --
 ALTER TABLE `restoran`
-  MODIFY `id_restoran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_restoran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

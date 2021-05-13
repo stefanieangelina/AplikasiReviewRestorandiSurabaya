@@ -151,7 +151,7 @@
                 <div class="col-lg-10">
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="home.php">Home</a></li>
                             <li><a href="findRestoran.php">Cari Restoran</a></li>
                             <?php if($_SESSION["role"] == "user") { ?>
                                 <li><a href="myRestoran.php">Restoran Saya</a></li>

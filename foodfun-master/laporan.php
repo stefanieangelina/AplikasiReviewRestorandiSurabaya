@@ -59,13 +59,13 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="home.php">Home</a></li>
                             <li><a href="findRestoran.php">Cari Restoran</a></li>
                             <?php if($_SESSION["role"] == "user") { ?>
                                 <li><a href="myRestoran.php">Restoran Saya</a></li>
                             <?php } ?>
                             <?php if($_SESSION["role"] == "admin") { ?>
-                                <li><a href="laporan.php">Laporan</a></li>
+                                <li class="active"><a href="#">Laporan</a></li>
                             <?php } ?>
                             <li><a href="profile.php">Profil Saya</a></li>
                             <li><a href="index.php">Logout</a></li>

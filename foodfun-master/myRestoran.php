@@ -65,18 +65,18 @@
                         <span></span>
                     </div>  
                     <div class="main-menu main-menu2">
-                        <ul>
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="findRestoran.php">Cari Restoran</a></li>
-                            <?php if($_SESSION["role"] == "user") { ?>
-                                <li><a href="myRestoran.php">Restoran Saya</a></li>
-                            <?php } ?>
-                            <?php if($_SESSION["role"] == "admin") { ?>
-                                <li><a href="laporan.php">Laporan</a></li>
-                            <?php } ?>
-                            <li><a href="profile.php">Profil Saya</a></li>
-                            <li><a href="index.php">Logout</a></li>
-                        </ul>
+                    <ul>
+                        <li><a href="home.php">Home</a></li>
+                        <li><a href="findRestoran.php">Cari Restoran</a></li>
+                        <?php if($_SESSION["role"] == "user") { ?>
+                            <li class="active"><a href="#">Restoran Saya</a></li>
+                        <?php } ?>
+                        <?php if($_SESSION["role"] == "admin") { ?>
+                            <li><a href="laporan.php">Laporan</a></li>
+                        <?php } ?>
+                        <li><a href="profile.php">Profil Saya</a></li>
+                        <li><a href="index.php">Logout</a></li>
+                    </ul>
                     </div>
                 </div>
             </div>
@@ -243,8 +243,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                     <a href="#" class="btn btn-success">Detail Restoran</a>
                                 </div>
                             </div>
-                            // <div id="resto-button${isiResto[index][0]}">
-                            // </div>
 
                             <br/>
 						`);
@@ -270,24 +268,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			data : `idx=${id}`,
 			success : function (result) {
 				var srcGambar = JSON.parse(result);
-				var img = new Image(100,145);
+				var img = new Image(348,225);
 				img.src=srcGambar;
 				document.getElementById('resto-image'+id).appendChild(img); 
 			}
 		})
 	}
 </script>
-
-<!-- 
-// <div class="product-item"id="product${isiProduct[index][0]}" >
-							// 	<div class="product product_filter" >
-							// 		<div class="product_image" >
-							// 			<div id="product-image${isiProduct[index][0]}" alt="" style="margin: 5px 5% 0px; width: 90%; height: 100%"></div>
-							// 		</div>
-							// 		<div class="product_info">
-							// 			<h6 class="product_name"><a href="single.html">${isiProduct[index][1]}</a></h6>
-							// 			<div class="product_price" id="product_price${isiProduct[index][0]}"></div>
-							// 		</div>
-							// 	</div>
-							// 	<div id="product-button${isiProduct[index][0]}"> </div>
-							// </div> -->

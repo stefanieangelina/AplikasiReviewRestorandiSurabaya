@@ -1,3 +1,22 @@
+<?php
+    include('conn.php');
+    session_start();
+
+    $idLogin = "";
+    $namaLogin = "";
+
+    if(isset($_SESSION['idLogin'])){
+        $idLogin = $_SESSION['idLogin'];
+        $namaLogin = $_SESSION['namaLogin'];
+    } else {
+        header("location: index.php");
+    }
+
+    // if(isset($_POST["btnSearch"])){
+    //     $keySearch = $_POST["txtSearch"];
+    // }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,9 +88,18 @@
                         <span></span>
                         <span></span>
                     </div>  
-                    <div class="main-menu">
+                    <div class="main-menu main-menu2">
                         <ul>
-                            <li class="active"><a href="index.php" style="color: white;">home</a></li>
+                            <li><a href="home.php">Home</a></li>
+                            <li class="active"><a href="#">Cari Restoran</a></li>
+                            <?php if($_SESSION["role"] == "user") { ?>
+                                <li><a href="myRestoran.php">Restoran Saya</a></li>
+                            <?php } ?>
+                            <?php if($_SESSION["role"] == "admin") { ?>
+                                <li><a href="laporan.php">Laporan</a></li>
+                            <?php } ?>
+                            <li><a href="profile.php">Profil Saya</a></li>
+                            <li><a href="index.php">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -90,20 +118,35 @@
                             <b style="color:black">Cari Restoran :</b>
                         </div>
                         <div class="right">
-                            <form method="post" style="form-inline">
-                                <input type="text" placeholder="Search">
-                                <button class="btn btn-warning">Search</button>
+                            <form role="form" id="form-Search" method="post">
+                                <div class="form-group">
+									<div class="input-group">
+                                        <input type="text" name="txtSearch" placeholder="Search">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-brown" type="submit" onclick="myFunction()">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
                             </form>  
                         </div>
-                    </div>
                     <br>
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Nama Restoran</h5>
                             <p class="card-text">Alamat Restoran</p>
                             <a href="#" class="btn btn-warning">Detail</a>
                         </div>
-                    </div> 
+                    </div>  -->
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="single-resto" id="single-resto">
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,3 +154,71 @@
     <!-- Banner Area End -->
 </body>
 </html>
+
+<script>
+	$(document).ready(function(){
+	});
+
+    $("#form-Search").click(function (e) {
+		e.preventDefault();
+		$("#single-resto").html('');
+
+		$.ajax({
+			method: "post",
+			url: "getSearchResto.php",
+            data: $("#form-Search").serialize(),
+			success: function(res){
+                var isiResto = JSON.parse(res); 
+                console.log(isiResto.result);
+
+				if(isiResto != "none"){
+					for (let index = 0; index < isiResto.length; index++) {
+						$("#single-resto").append(`
+                            <div class="card" id="resto${isiResto[index][0]}">
+                                <div class="resto_image">
+                                    <div id="resto-image${isiResto[index][0]}" alt="" class="img-fluid"></div>
+                                </div>
+                                <h5 class="card-header">${isiResto[index][2]}</h5>
+                                <div class="card-body" >
+                                    <b class="card-title">
+                                        &#xf005;
+                                        ${isiResto[index][6]}
+                                    </b>
+                                    <p> ${isiResto[index][5]} <br/>
+                                        ${isiResto[index][4]} 
+                                    </p>
+                                    <a href="#" class="btn btn-success">Detail Restoran</a>
+                                </div>
+                            </div>
+
+                            <br/>
+						`);
+						ambilGambar(isiResto[index][0]);
+					}
+				} else {
+					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
+				}
+			},  
+            failure: function () {
+                alert("salah");
+            },
+            error: function () {
+                alert("nothing");
+            }
+		})
+	});
+
+    function ambilGambar(id){
+		$.ajax({
+			method : "post",
+			url : "getOneImage.php",
+			data : `idx=${id}`,
+			success : function (result) {
+				var srcGambar = JSON.parse(result);
+				var img = new Image(348,225);
+				img.src=srcGambar;
+				document.getElementById('resto-image'+id).appendChild(img); 
+			}
+		})
+	}
+</script>
