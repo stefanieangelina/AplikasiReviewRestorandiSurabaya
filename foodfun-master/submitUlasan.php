@@ -10,7 +10,7 @@
   $result = mysqli_query($conn, $queryinsert);
   
   if ($result) {
-    header('location: /foodfun-master/home.php');    
+    header('location: /foodfun-master/restoranDetail.php?resto='. $idRestoran);    
   }else {
       echo mysqli_error($conn);
       die();
