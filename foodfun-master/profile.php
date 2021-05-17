@@ -133,16 +133,16 @@
                     <div class = "infouser" style="text-align: center;">
                         <form method="post">
                             <div class="form-group">
-                                <label style="color: orange;">Name : <?= $namaLogin ?></label>
+                                <label style="color: orange;">Nama : <?= $namaLogin ?></label>
                             </div>
                             <div class="form-group">
                                 <label style="color: orange;">Email : <?= $emailLogin ?></label>
                             </div>
                             <div class="form-group">
-                                <label style="color: orange;">Address : <?= $alamatLogin ?></label>
+                                <label style="color: orange;">Alamat : <?= $alamatLogin ?></label>
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="btnEdit" class="btn btn-warning">Edit Profile</button>
+                                <button type="submit" name="btnEdit" class="btn btn-warning">Edit Profil</button>
                             </div>
                         </form>
                     </div>

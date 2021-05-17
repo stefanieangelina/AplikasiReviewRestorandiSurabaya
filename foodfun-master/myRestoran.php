@@ -245,13 +245,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                         ${isiResto[index][6]}
                                     </b>
                                     <p> ${isiResto[index][5]} <br/>
-                                        ${isiResto[index][4]} 
+                                        0${isiResto[index][4]} 
                                     </p>
                                 </div>
                                 
                                 <form method="post">
-                                        <input type="hidden" name="idResto" value="${isiResto[index][0]}">
-                                        <button type="submit" name="btnEdit" class="btn btn-warning" style="color:white; transform:translateX(40%)">Edit Restoran</button>
+                                    <input type="hidden" name="idResto" value="${isiResto[index][0]}">
+                                    <button type="submit" name="btnEdit" class="btn btn-warning" style="color:white; transform:translateX(40%)">Edit Restoran</button>
                                 </form>
 
                                 <div id="resto-button${isiResto[index][0]}" style="transform:translateX(52%) translateY(-135%)"></div>

@@ -263,7 +263,7 @@
                                 <p class="pt-3">
                                     ${isiResto[index]['rating']} <br/>
                                     ${isiResto[index]['alamat']} <br/>
-                                    ${isiResto[index]['no_tlp']} <br/>
+                                    0${isiResto[index]['no_tlp']} <br/>
                                 </p>
                             </div>
                             ${reviews}

@@ -197,24 +197,24 @@
                                 </center></small>
                                 <br/> <br/>
 
-                                <label style="color: orange;">Name : </label>
+                                <label style="color: orange;">Nama : </label>
                                 <input type="text" value="<?= $namaLogin ?>" name="nama" class="form-control"><br/>
                                 
                                 <label style="color: orange;">Email : </label>
                                 <input type="email" value="<?= $emailLogin ?>" class="form-control" disabled><br/>
                                 
-                                <label style="color: orange;">Address : </label>
+                                <label style="color: orange;">Alamat : </label>
                                 <input type="text" value="<?= $alamatLogin ?>" name="alamat" class="form-control"><br/>                              
                                 
                                 <label style="color: orange;">Password : </label>
                                 <input type="password" value="" name="pass" class="form-control">
                                 <small id="passHint">If you didn't want change the password, leave it blank </small> <br/><br/>
                                 
-                                <label style="color: orange;">Confirm Password : </label>
+                                <label style="color: orange;">Konfirm Password : </label>
                                 <input type="password" value="" name="cpass" class="form-control">
                                 <small id="confPassHint">If you didn't want change the password, leave it blank </small> <br/><br/>
                                 
-                                <input type="submit" class="btn btn-warning" value="     Edit Profile     " name="edit">
+                                <input type="submit" class="form-control btn btn-warning" value="Edit Data Profil" name="edit">
                             </div>
                         </form>
                     </div>

@@ -2,10 +2,7 @@
     include("conn.php");
     session_start();
 
-    if(isset($_SESSION['idLogin'])){
-        $idLogin = $_SESSION['idLogin'];
-        $namaLogin = $_SESSION['namaLogin'];
-    } else {
+    if(!isset($_SESSION['idLogin'])){
         header("location: index.php");
     }
 
