@@ -65,7 +65,7 @@
                                 <li><a href="myRestoran.php">Restoran Saya</a></li>
                             <?php } ?>
                             <?php if($_SESSION["role"] == "admin") { ?>
-                                <li class="active"><a href="#">Laporan</a></li>
+                                <li class="active"><a href="laporan.php">Laporan</a></li>
                             <?php } ?>
                             <li><a href="profile.php">Profil Saya</a></li>
                             <li><a href="index.php">Logout</a></li>
@@ -82,11 +82,19 @@
             <div class="row">
                 <div class="col-md-10">
                     <div class="section-top">
-                        <h3><span class="style-change">Laporan Restoran</span> Terbaik</h3>
-                        <p class="pt-3">
-                            Berisikan 10 restoran terbaik yang diurutkan berdasarkan rating restoran.
-                            Semakin tinggi rating akan semakin baik restoran.
-                        </p>
+                        <center>
+                            <h3><span class="style-change">Laporan Restoran Terbaik </span></h3>
+                            <br/>
+                            <h5> per tanggal 
+                                <?php
+                                    $tgl=date('d-m-Y');
+                                    echo $tgl;
+                                ?>
+                            </h5>
+                        </center>
+
+                        <br/><br/><br/>
+
                         <table class="table table-striped table-bordered">
                             <thead style="text-align:center">
                                 <tr>
@@ -123,8 +131,6 @@
                 </div>
             </div>
         </div>
-
-        <a href="cetak.php">cetak</a>
     </section>
 
     <!-- <section class="food-area section-padding">
@@ -153,3 +159,7 @@
     <script src="assets/js/main.js"></script>
 </body>
 </html>
+
+<script>
+    window.print();
+</script>
