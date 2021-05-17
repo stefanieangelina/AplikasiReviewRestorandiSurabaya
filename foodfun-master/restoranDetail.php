@@ -1,5 +1,11 @@
-<?php session_start(); 
+<?php 
     include('conn.php');
+    session_start();
+
+    if(!isset($_SESSION['idLogin'])){
+        header("location: index.php");
+    }
+
     if (!isset($_GET['resto'] )) {
         die('NOT FOUND');
     }

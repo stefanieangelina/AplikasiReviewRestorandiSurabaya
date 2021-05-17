@@ -1,6 +1,10 @@
 <?php 
-  session_start();
   require_once("conn.php");
+  session_start();
+
+  if(!isset($_SESSION['idLogin'])){
+    header("location: index.php");
+  }
     
   $idRestoran = $_POST['id_restoran'];
   $ulasan = $_POST['ulasan'];

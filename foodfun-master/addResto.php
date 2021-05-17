@@ -9,7 +9,7 @@
         $idLogin = $_SESSION['idLogin'];
         $namaLogin = $_SESSION['namaLogin'];
     } else {
-        header("location: home.php");
+        header("location: index.php");
     }
     
     if(isset($_POST["daftar"])){

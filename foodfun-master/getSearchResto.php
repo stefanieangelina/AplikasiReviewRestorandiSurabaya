@@ -1,5 +1,10 @@
 <?php 
     require_once("conn.php");
+    session_start();
+
+    if(!isset($_SESSION['idLogin'])){
+        header("location: index.php");
+    }
 
     $keySearch = $_POST["keySearch"];
     $keySearch = strtolower($keySearch);

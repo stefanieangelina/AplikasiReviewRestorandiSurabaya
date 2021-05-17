@@ -2,6 +2,13 @@
     include('conn.php');
     session_start();
 
+    if(isset($_SESSION['idLogin'])){
+        $idLogin = $_SESSION['idLogin'];
+        $namaLogin = $_SESSION['namaLogin'];
+    } else {
+        header("location: index.php");
+    }
+
     $idLogin = "";
     $idResto = "";
     $nama = "";
@@ -38,7 +45,7 @@
             }
         }
     } else {
-        header("location: home.php");
+        header("location: index.php");
     }
 
 

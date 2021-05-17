@@ -32,7 +32,7 @@
             }
         }
     } else {
-        header("location: home.php");
+        header("location: index.php");
     }
 
     if(isset($_POST["btnEdit"])){

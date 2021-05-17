@@ -14,7 +14,7 @@
         echo 'var idLog = ' . $idLogin . ';';
         echo '</script>';
     } else {
-        header("location: home.php");
+        header("location: index.php");
     }
 
     if(isset($_POST["tambahResto"])){

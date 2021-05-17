@@ -1,7 +1,11 @@
   
 <?php
-    session_start();
     include_once("conn.php");
+    session_start();
+
+    if(!isset($_SESSION['idLogin'])){
+        header("location: index.php");
+    }
 
     $idx = $_POST['idx'];
     $returnValue = "Gagal mengahpus restoran!";

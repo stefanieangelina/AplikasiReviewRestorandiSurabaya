@@ -1,5 +1,10 @@
 <?php 
     require_once("conn.php");
+    session_start();
+
+    if(!isset($_SESSION['idLogin'])){
+        header("location: index.php");
+    }
 
     $querySelect = "SELECT * FROM restoran WHERE status=1";
     $result = mysqli_query($conn, $querySelect);
