@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2021 at 05:20 AM
+-- Generation Time: May 17, 2021 at 09:47 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -44,7 +44,7 @@ CREATE TABLE `foto` (
 
 INSERT INTO `foto` (`id_foto`, `nama`, `user_id`, `restoran_id`, `status`) VALUES
 (1, 'assets/images/profile/18.jpg', 1, 0, 1),
-(2, 'assets/images/customer1.png', 2, 0, 1),
+(2, 'assets/images/profile/1.jpg', 2, 0, 1),
 (3, 'assets/images/resto/', 0, 0, 1),
 (4, 'assets/images/resto/', 0, 2, 1),
 (5, 'assets/images/resto/18.jpg', 0, 3, 1),
@@ -53,7 +53,7 @@ INSERT INTO `foto` (`id_foto`, `nama`, `user_id`, `restoran_id`, `status`) VALUE
 (8, 'assets/images/resto/17.jpg', 0, 6, 1),
 (9, 'assets/images/resto/1.jpg', 0, 7, 1),
 (10, 'assets/images/resto/18.jpg', 0, 8, 1),
-(11, 'assets/images/resto/18.jpg', 0, 1, 1);
+(11, 'assets/images/resto/62298.jpg', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,8 @@ CREATE TABLE `komentar` (
   `id_komentar` int(11) NOT NULL,
   `id_user` varchar(30) NOT NULL,
   `id_restoran` int(11) NOT NULL,
-  `ulasan` longtext NOT NULL
+  `ulasan` longtext NOT NULL,
+  `rating` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -94,7 +95,7 @@ CREATE TABLE `restoran` (
 --
 
 INSERT INTO `restoran` (`id_restoran`, `user_id`, `nama`, `deskripsi`, `no_tlp`, `alamat`, `rating`, `jumlah_org`, `foto_id`, `status`) VALUES
-(1, 2, 'a', 'a', 8569, 'a', 0, 0, 11, 1);
+(1, 2, 'Ayam Bakar Uenak Poll', 'ayam bakar enak', 812345, 'jl ahmad yani 55', 0, 0, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `nama`, `email`, `alamat`, `password`, `foto_id`, `role`) VALUES
 (1, 'Admin Stefanie', 'admin.stefanie@gmail.com', 'kapasari 50', '$2y$10$d3InjCeGRznJ6lV0rDxc5OXdwHoORC1jXI7dBwo4EncaAl8lgsYwa', 1, 'admin'),
-(2, 'stefanie angelina', 'stefanie1@mhs.stts.edu', 'Kapasari 3', '$2y$10$tNDJbIXbvVUeakselvEIOeHtp.J0LYHsOeddH3W1vcLl4jbmf8i1G', 2, 'user');
+(2, 'stefanie angelina gunarto', 'stefanie1@mhs.stts.edu', 'Kapasari 3', '$2y$10$tNDJbIXbvVUeakselvEIOeHtp.J0LYHsOeddH3W1vcLl4jbmf8i1G', 2, 'user');
 
 --
 -- Indexes for dumped tables
