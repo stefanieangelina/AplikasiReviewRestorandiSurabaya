@@ -5,6 +5,8 @@
     $idLogin = "";
     $namaLogin = "";
 
+    $_SESSION["idxEdit"] = 0;
+
     if(isset($_SESSION['idLogin'])){
         $idLogin = $_SESSION['idLogin'];
         $namaLogin = $_SESSION['namaLogin'];
@@ -17,6 +19,11 @@
 
     if(isset($_POST["tambahResto"])){
         header("location: addResto.php");
+    }
+
+    if(isset($_POST["btnEdit"])){
+        $_SESSION["idxEdit"] = $_POST["idResto"];
+        header("location: editResto.php");
     }
 ?>
 
@@ -240,13 +247,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                     <p> ${isiResto[index][5]} <br/>
                                         ${isiResto[index][4]} 
                                     </p>
-                                    <a href="#" class="btn btn-success">Detail Restoran</a>
                                 </div>
-                            </div>
+                                
+                                <form method="post">
+                                        <input type="hidden" name="idResto" value="${isiResto[index][0]}">
+                                        <button type="submit" name="btnEdit" class="btn btn-warning" style="color:white; transform:translateX(40%)">Edit Restoran</button>
+                                </form>
 
-                            <br/>
+                                <div id="resto-button${isiResto[index][0]}" style="transform:translateX(52%) translateY(-135%)"></div>
+                            </div>
 						`);
 						ambilGambar(isiResto[index][0]);
+
+                        var newBtnHapus = $('<button type="submit" id="btnHapus" class="btn btn-danger">Hapus Resto</button>');
+						newBtnHapus.on("click", {"idx": isiResto[index][0]}, fungsiBtnHapus);
+						$("#resto-button"+isiResto[index][0]).append(newBtnHapus);
 					}
 				} else {
 					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
@@ -260,6 +275,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             }
 		})
 	};
+
+    function fungsiBtnHapus(e){
+		var index = e.data.idx;
+		$.ajax({
+			method: "post",
+			url : "hapusResto.php",
+			data : `idx=${index}`,
+			success : function(res){
+				var hapusRestoran = JSON.parse(res);
+				alert(hapusRestoran);
+			}
+		});
+
+        loadResto(idLog);
+	}
 
     function ambilGambar(id){
 		$.ajax({
