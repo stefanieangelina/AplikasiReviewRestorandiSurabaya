@@ -6,7 +6,8 @@
         header("location: index.php");
     }
 
-    $keySearch = $_POST["keySearch"];
+    $keySearch = "";
+    if(isset($_POST["keySearch"])) $keySearch = $_POST["keySearch"];
     $keySearch = strtolower($keySearch);
 
     $querySelect = "SELECT * FROM restoran WHERE status=1 AND lower(nama) like '%$keySearch%'";

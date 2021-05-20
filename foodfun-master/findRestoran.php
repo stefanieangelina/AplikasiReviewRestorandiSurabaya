@@ -118,27 +118,21 @@
                             <b style="color:black">Cari Restoran :</b>
                         </div>
                         <div class="right">
-                            <form role="form" id="form-Search" method="post">
+                            <form role="form" id="form-search">
                                 <div class="form-group">
 									<div class="input-group">
-                                        <input type="text" name="txtSearch" placeholder="Search">
+                                        <input type="text" name="txtSearch" id="txtSearch" placeholder="Search">
                                         <span class="input-group-btn">
                                             <button class="btn btn-brown" type="submit" onclick="myFunction()">
                                                 <i class="fa fa-search" aria-hidden="true"></i>
                                             </button>
                                         </span>
+                                        <!-- <button onclick="myFunction()">Copy Text</button> -->
                                     </div>
                                 </div>
                             </form>  
                         </div>
-                    <br>
-                    <!-- <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Nama Restoran</h5>
-                            <p class="card-text">Alamat Restoran</p>
-                            <a href="#" class="btn btn-warning">Detail</a>
-                        </div>
-                    </div>  -->
+                    <br/>
 
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
@@ -156,21 +150,19 @@
 </html>
 
 <script>
-	$(document).ready(function(){
-	});
-
-    $("#form-Search").click(function (e) {
-		e.preventDefault();
-		$("#single-resto").html('');
-
+    function myFunction(e) {
+        var a = document.getElementById("txtSearch").value;
+        alert(a);
+        $("#single-resto").html('');
+        
 		$.ajax({
 			method: "post",
 			url: "getSearchResto.php",
-            data: $("#form-Search").serialize(),
+            data: `keySearch=${a}`,
 			success: function(res){
                 var isiResto = JSON.parse(res); 
                 console.log(isiResto.result);
-
+                
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
 						$("#single-resto").append(`
@@ -206,7 +198,7 @@
                 alert("nothing");
             }
 		})
-	});
+    }
 
     function ambilGambar(id){
 		$.ajax({
