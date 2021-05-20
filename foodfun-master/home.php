@@ -11,6 +11,11 @@
     } else {
         header("location: index.php");
     }
+
+    if(isset($_POST['btnDetail'])){
+        $_SESSION['restoId'] = $_POST['idResto'];
+        header("location: restoranDetail.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -266,16 +271,12 @@
                                     0${isiResto[index]['no_tlp']} <br/>
                                 </p>
                             </div>
-                            ${reviews}
-                            <div class="ulasan-form">
-                                <form action="submitUlasan.php" method="post">
-                                    <input type="hidden" name="id_restoran" value="${isiResto[index]['id_restoran']}">
-                                    <textarea placeholder="Isi Ulasan" name="ulasan" cols="30" rows="10"></textarea>
-                                    <button type="submit">Submit Ulasan</button>
-                                </form>
-                            </div>
 
-						`);
+                            <form method="post">
+                                <input type="hidden" name="idResto" value="${isiResto[index]['id_restoran']}">
+                                <button type="submit" name="btnDetail" class="btn btn-success" style="color:white; transform:translateX(40%)">Detail Restoran</button>
+                            </form>
+                        `);
 						ambilGambar(isiResto[index][0]);
 					}
 				} else {

@@ -2,10 +2,6 @@
     include('conn.php');
     session_start();
 
-    if(!isset($_SESSION['idLogin'])){
-        header("location: index.php");
-    }
-
     if (!isset($_SESSION['restoId'] )) {
         die('NOT FOUND');
     }
@@ -21,6 +17,9 @@
         die('NOT FOUND');
     }
 
+    if(isset($_POST["btnPostComment"])){
+        echo "<script>alert('Silahkan login terlebih dahulu untuk meninggalkan komentar!');</script>";
+    }
 
     $querySelect = "
         SELECT k.ulasan, u.nama 
@@ -82,16 +81,8 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="home.php">Home</a></li>
-                            <li><a href="findRestoran.php">Cari Restoran</a></li>
-                            <?php if($_SESSION["role"] == "user") { ?>
-                                <li><a href="myRestoran.php">Restoran Saya</a></li>
-                            <?php } ?>
-                            <?php if($_SESSION["role"] == "admin") { ?>
-                                <li><a href="laporan.php">Laporan</a></li>
-                            <?php } ?>
-                            <li><a href="profile.php">Profil Saya</a></li>
-                            <li><a href="index.php">Logout</a></li>
+                            <li class="active"><a href="index.php">Home</a></li>
+                            <li><a href="login.php">Login</a></li>                            
                         </ul>
                     </div>
                 </div>
@@ -186,7 +177,7 @@
                     </form> -->
                     <div class="comment-form">
                         <h4>Leave a Reply</h4>
-                        <form action="submitUlasan.php" method="post">
+                        <form method="post">
                             <input type="hidden" name="id_restoran" value="<?= $_SESSION['restoId'] ?>">
                             <!-- <div class="form-group form-inline"> -->
                                 <!-- <div class="form-group col-lg-6 col-md-6 name"> -->
@@ -202,7 +193,7 @@
                             <div class="form-group">
                                 <textarea class="form-control mb-10" rows="5" name="ulasan" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                             </div>
-                            <button type="submit" class="template-btn">Post Comment</button>	
+                            <button type="submit" name="btnPostComment" class="template-btn">Post Comment</button>	
                         </form>
                     </div>
                 </div>

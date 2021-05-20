@@ -2,7 +2,10 @@
     include('conn.php');
     session_start();
 
-    session_destroy();
+    if(isset($_POST['btnDetail'])){
+        $_SESSION['restoId'] = $_POST['idResto'];
+        header("location: indexRestoDetail.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -102,18 +105,15 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="section-top">
-                        <h3><span class="style-change">Restoran</h3>
+                        <h3><span class="style-change">Restaurant</h3>
                         <p class="pt-3">They're fill divide i their yielding our after have him fish on there for greater man moveth, moved Won't together isn't for fly divide mids fish firmament on net.</p>
                     </div>
                 </div>
             </div>
-
-            <br/>
-            
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <div class="single-resto" id="single-resto">
-
+                        
                     </div>
                 </div>
             </div>
@@ -527,43 +527,57 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <script>
-	$(document).ready(function(e){
+	$(document).ready(function(){
 		loadResto();
-        e.preventD
 	});
 
     function loadResto(){
 		$("#single-resto").html('');
 		$.ajax({
 			method: "post",
-			url : "showRestoran.php",
+			url : "showRestoran_assoc.php",
 			success : function(res){
 				var isiResto = JSON.parse(res);
 
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
+                        let reviews = ``;
+                        if (isiResto[index].ulasans !== null) {                            
+                            ulasans = isiResto[index].ulasans.split('#_#');
+                            namas = isiResto[index].namas.split('#_#');
+                            for (let uIndex = 0; uIndex < ulasans.length; uIndex++) {
+                                reviews += `
+                                    <div>
+                                        ${namas[uIndex]}: ${ulasans[uIndex]}
+                                    </div>
+                                `;
+                            }
+                        }
 						$("#single-resto").append(`
-                            <div class="card">
-                                <div class="resto_image">
-                                    <div id="resto-image${isiResto[index][0]}" alt="" class="img-fluid"></div>
-                                </div>
-                                <h5 class="card-header">${isiResto[index][2]}</h5>
-                                <div class="card-body" >
-                                    <b class="card-title">
-                                        &#xf005;
-                                        ${isiResto[index][6]}
-                                    </b>
-                                    <p> ${isiResto[index][5]} <br/>
-                                        ${isiResto[index][4]}   </p>
-                                    <a href="#" class="btn btn-success">Detail Restoran</a>
-                                </div>
+                            <div class="food-img">
+                                <img src="resto-image${isiResto[index]['id_restoran']}" class="img-fluid" alt="">
                             </div>
-                            <br/>
-						`);
-						// ambilGambar(isiResto[index][0]);
+                            <div class="food-content">
+                                <div class="d-flex justify-content-between">
+                                    <h5>${isiResto[index]['nama']}</h5>
+                                    <!-- <span class="style-change">$14.50</span> -->
+                                </div>
+                                <p class="pt-3">
+                                    ${isiResto[index]['rating']} <br/>
+                                    ${isiResto[index]['alamat']} <br/>
+                                    0${isiResto[index]['no_tlp']} <br/>
+                                </p>
+                            </div>
+
+                            <form method="post">
+                                <input type="hidden" name="idResto" value="${isiResto[index]['id_restoran']}">
+                                <button type="submit" name="btnDetail" class="btn btn-success" style="color:white; transform:translateX(40%)">Detail Restoran</button>
+                            </form>
+                        `);
+						ambilGambar(isiResto[index][0]);
 					}
 				} else {
-					$("#single-resto").append("<h3> Belum ada restoran terdaftar! </h3>");
+					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
 				}
 			}
 		})
@@ -576,7 +590,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			data : `idx=${id}`,
 			success : function (result) {
 				var srcGambar = JSON.parse(result);
-				var img = new Image(100,145);
+				var img = new Image(348,225);
 				img.src=srcGambar;
 				document.getElementById('resto-image'+id).appendChild(img); 
 			}
