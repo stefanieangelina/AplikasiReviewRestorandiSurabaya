@@ -7,7 +7,7 @@
     // }
 
     $keySearch = "";
-    if(isset($_POST["keySearch"])) $keySearch = $_POST["keySearch"];
+    if(isset($_POST["key"])) $keySearch = $_POST["key"];
     $keySearch = strtolower($keySearch);
 
     $querySelect = "SELECT * FROM restoran WHERE status=1 AND lower(nama) like '%$keySearch%'";
@@ -21,4 +21,6 @@
     }
 
     echo json_encode($isiDB);
+
+    //echo "$keySearch";
 ?>

@@ -42,7 +42,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
-
+    <script type="text/javascript" src="assets/js/vendor/jquery-2.2.4.min.js"></script>
     <style>
         .card{
             text-align: left;
@@ -119,29 +119,27 @@
                             <b style="color:black">Cari Restoran :</b>
                         </div>
                         <div class="right">
-                            <form role="form" id="form-search">
                                 <div class="form-group">
 									<div class="input-group">
                                         <input type="text" name="txtSearch" id="txtSearch" placeholder="Search">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-brown" type="submit" onclick="myFunction()">
+                                            <button class="btn btn-brown" onclick="myFunction()">
                                                 <i class="fa fa-search" aria-hidden="true"></i>
                                             </button>
                                         </span>
                                         <!-- <button onclick="myFunction()">Copy Text</button> -->
                                     </div>
-                                </div>
-                            </form>  
+                                </div>                           
                         </div>
                     <br/>
-
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-resto" id="single-resto">
-                                
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="single-resto" id="single-resto">
+                        
                 </div>
             </div>
         </div>
@@ -217,17 +215,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script>
     function myFunction(e) {
         var a = document.getElementById("txtSearch").value;
-        // alert(a);
-        $("#single-resto").html('');
-        
+        //$("#single-resto").html('');
 		$.ajax({
 			method: "post",
 			url: "getSearchResto.php",
-            data: `keySearch=${a}`,
+            data: `key=${a}`,
+            contentType: false,
+            processData: false,
+            async: false,
 			success: function(res){
                 var isiResto = JSON.parse(res); 
                 console.log(isiResto.result);
-                
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
 						$("#single-resto").append(`
@@ -244,10 +242,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                     <p> ${isiResto[index][5]} <br/>
                                         ${isiResto[index][4]} 
                                     </p>
-                                    <a href="#" class="btn btn-success">Detail Restoran</a>
+                                    <a href="restoran-details.html" class="btn btn-success">Detail Restoran</a>
                                 </div>
                             </div>
-
                             <br/>
 						`);
 						ambilGambar(isiResto[index][0]);
@@ -262,7 +259,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             error: function () {
                 alert("nothing");
             }
-		})
+		});
+        //alert('erland');
+    }
+
+    function newFunc(){
+        var a = document.getElementById("txtSearch").value;
+        $.ajax({
+            method: 'post',
+            url: 'getSearchResto.php',
+            data:  `key=${a}`,
+            success : function(res){
+                alert(res);
+            }
+        });
     }
 
     function ambilGambar(id){
