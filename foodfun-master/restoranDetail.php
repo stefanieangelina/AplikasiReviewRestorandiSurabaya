@@ -10,7 +10,7 @@
         die('NOT FOUND');
     }
     $restoId = $_SESSION["restoId"];
-
+    $usersId = $_SESSION["idLogin"];
     $querySelect = "SELECT restoran.*, foto.nama as photo_url
     FROM restoran LEFT JOIN foto on foto.id_foto = restoran.foto_id
     WHERE restoran.status=1 AND restoran.id_restoran=$restoId";
@@ -22,10 +22,20 @@
         die('NOT FOUND');
     }
 
-
+    $querySelect = "SELECT users.*, foto.nama as photo_id
+    FROM users LEFT JOIN foto on foto.id_foto = users.foto_id
+    WHERE users.id_user=$usersId
+    ";
+    $users =mysqli_query($conn, $querySelect)->fetch_all(MYSQLI_ASSOC);
+    $userID = [];
+    if (!empty($users)) {
+        $userID = $users[0];
+    } else {
+        die('NOT FOUND');
+    }
     $querySelect = "
-        SELECT k.ulasan, u.nama, k.rating
-        FROM komentar k 
+        SELECT k.ulasan, u.nama, k.rating, u.foto_id as photo_id
+        FROM komentar k  
         JOIN users u ON u.id_user= k.id_user
         WHERE k.id_restoran=$restoId
     ";
@@ -165,7 +175,7 @@
                                     <div class="single-comment justify-content-between d-flex">
                                         <div class="user justify-content-between d-flex">
                                             <div class="thumb">
-                                                <img src="assets/images/blog-details/c1.jpg" alt="">
+                                                <img class="img-fluid" img src="<?=$userID['photo_id']?>" style='height:10vh;' alt="">
                                             </div>
                                             <div class="desc">
                                                 <h5><a href="#"><?php echo $comments[$i]['nama']; ?>  </a></h5>
