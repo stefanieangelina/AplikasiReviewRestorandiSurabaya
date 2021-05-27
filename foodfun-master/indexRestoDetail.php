@@ -21,13 +21,26 @@
         echo "<script>alert('Silahkan login terlebih dahulu untuk meninggalkan komentar!');</script>";
     }
 
+    $querySelect = "SELECT restoran.*, foto.nama as photo_url
+    FROM restoran LEFT JOIN foto on foto.id_foto = restoran.foto_id
+    WHERE restoran.status=1 AND restoran.id_restoran=$restoId";
+    $restaurants = mysqli_query($conn, $querySelect)->fetch_all(MYSQLI_ASSOC);
+    $restaurant = [];
+    if (!empty($restaurants)) {
+        $restaurant = $restaurants[0];
+    } else {
+        die('NOT FOUND');
+    }
+
+
     $querySelect = "
-        SELECT k.ulasan, u.nama 
+        SELECT k.ulasan, u.nama, k.rating
         FROM komentar k 
         JOIN users u ON u.id_user= k.id_user
         WHERE k.id_restoran=$restoId
     ";
     $comments = mysqli_query($conn, $querySelect)->fetch_all(MYSQLI_ASSOC);
+    
 
     // [
     //     $i 0 ['ulasana'=>'alskdjalksjd', 'nama'=> 'akaskd'],
@@ -96,10 +109,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 posts-list">
-                    <div class="single-post row">
+                <div class="single-post row">
                         <div class="col-lg-12">
                             <div class="feature-img" style="text-align:center;">
-                                <img class="img-fluid" src="assets/images/blog-details/feature-img1.jpg" alt="">
+                                <img class="img-fluid" src="<?=$restaurant['photo_url']?>"  style='height:100vh;' alt="">
                             </div>									
                         </div>
                         <div class="col-lg-3  col-md-3">
@@ -115,6 +128,7 @@
                                         <!-- <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li> -->
                                         <!-- <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li> -->
                                         <li><a href="#"><?php echo count( $comments)?> Comments<i class="fa fa-comment-o"></i></a></li>
+                                        <li><a href="#"><?php echo $restaurant['rating']?> Rating<i class="fa fa-star"></i></a></li>
                                     </ul>
                                 <!-- <ul class="social-links">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -132,12 +146,12 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-6">
+                                <!-- <div class="col-6">
                                     <img class="img-fluid" src="assets/images/blog-details/post-img1.jpg" alt="">
                                 </div>
                                 <div class="col-6">
                                     <img class="img-fluid" src="assets/images/blog-details/post-img2.jpg" alt="">
-                                </div>	
+                                </div>	 -->
                                 <div class="col-lg-12 my-4">
                                 </div>									
                             </div>
@@ -158,7 +172,7 @@
                                             </div>
                                             <div class="desc">
                                                 <h5><a href="#"><?php echo $comments[$i]['nama']; ?>  </a></h5>
-                                                <p class="date">Rating: 5.0 </p>
+                                                <p class="date">Rating: <?= $comments[$i]['rating']?> </p>
                                                 <p class="comment">
                                                     <?= $comments[$i]['ulasan'] ?>
                                                 </p>
@@ -191,7 +205,7 @@
                                 <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
                             </div> -->
                             <div class="form-group">
-                                <textarea class="form-control mb-10" rows="5" name="ulasan" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+                                <textarea class="form-control mb-10" rows="5" name="ulasan" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"></textarea>
                             </div>
                             <button type="submit" name="btnPostComment" class="template-btn">Post Comment</button>	
                         </form>
@@ -204,7 +218,7 @@
     <!--================Blog Area =================-->
 
      <!-- Footer Area Starts -->
- <footer class="footer-area">
+    <footer class="footer-area">
         <div class="footer-widget section-padding">
             <div class="container">
                 <div class="row">

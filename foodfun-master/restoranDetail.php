@@ -109,7 +109,7 @@
                     <div class="single-post row">
                         <div class="col-lg-12">
                             <div class="feature-img" style="text-align:center;">
-                                <img class="img-fluid" src="<?=$restaurant['photo_url']?>"  style='height:25vh;' alt="">
+                                <img class="img-fluid" src="<?=$restaurant['photo_url']?>"  style='height:100vh;' alt="">
                             </div>									
                         </div>
                         <div class="col-lg-3  col-md-3">
@@ -169,7 +169,7 @@
                                             </div>
                                             <div class="desc">
                                                 <h5><a href="#"><?php echo $comments[$i]['nama']; ?>  </a></h5>
-                                                <p class="date">Rating: <?= $comments[$i]['rating']?> </p>
+                                                <p class="date"><i class="fa fa-star" style="color:gold"></i> <?= $comments[$i]['rating']?> </p>
                                                 <p class="comment">
                                                     <?= $comments[$i]['ulasan'] ?>
                                                 </p>
@@ -289,6 +289,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="assets/js/vendor/jquery.nice-select.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/rater.min.js"></script>
+
     <script>
         var options = {
             max_value: 5,
