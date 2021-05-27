@@ -2,9 +2,9 @@
     require_once("conn.php");
     session_start();
 
-    if(!isset($_SESSION['idLogin'])){
-        header("location: index.php");
-    }
+    // if(!isset($_SESSION['idLogin'])){
+    //     header("location: index.php");
+    // }
 
     $keySearch = "";
     if(isset($_POST["keySearch"])) $keySearch = $_POST["keySearch"];

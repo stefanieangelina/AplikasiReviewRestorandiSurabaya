@@ -12,9 +12,10 @@
         header("location: index.php");
     }
 
-    // if(isset($_POST["btnSearch"])){
-    //     $keySearch = $_POST["txtSearch"];
-    // }
+    if(isset($_POST['btnDetail'])){
+        $_SESSION['restoId'] = $_POST['idResto'];
+        header("location: restoranDetail.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -152,7 +153,7 @@
 <script>
     function myFunction(e) {
         var a = document.getElementById("txtSearch").value;
-        alert(a);
+        // alert(a);
         $("#single-resto").html('');
         
 		$.ajax({
