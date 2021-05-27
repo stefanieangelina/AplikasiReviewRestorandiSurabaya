@@ -12,7 +12,9 @@
     $restoId = $_SESSION["restoId"];
 
 
-    $querySelect = "SELECT * FROM restoran WHERE status=1 AND id_restoran=$restoId";
+    $querySelect = "SELECT restoran.*, foto.nama as photo_url
+    FROM restoran LEFT JOIN foto on foto.id_foto = restoran.foto_id
+    WHERE restoran.status=1 AND restoran.id_restoran=$restoId";
     $restaurants = mysqli_query($conn, $querySelect)->fetch_all(MYSQLI_ASSOC);
     $restaurant = [];
     if (!empty($restaurants)) {
@@ -23,7 +25,7 @@
 
 
     $querySelect = "
-        SELECT k.ulasan, u.nama 
+        SELECT k.ulasan, u.nama, k.rating
         FROM komentar k 
         JOIN users u ON u.id_user= k.id_user
         WHERE k.id_restoran=$restoId
@@ -108,7 +110,7 @@
                     <div class="single-post row">
                         <div class="col-lg-12">
                             <div class="feature-img" style="text-align:center;">
-                                <img class="img-fluid" src="assets/images/blog-details/feature-img1.jpg" alt="">
+                                <img class="img-fluid" src="<?=$restaurant['photo_url']?>"  style='height:25vh;' alt="">
                             </div>									
                         </div>
                         <div class="col-lg-3  col-md-3">
@@ -124,6 +126,7 @@
                                         <!-- <li><a href="#">12 Dec, 2017<i class="fa fa-calendar-o"></i></a></li> -->
                                         <!-- <li><a href="#">1.2M Views<i class="fa fa-eye"></i></a></li> -->
                                         <li><a href="#"><?php echo count( $comments)?> Comments<i class="fa fa-comment-o"></i></a></li>
+                                        <li><a href="#"><?php echo $restaurant['rating']?> Rating<i class="fa fa-comment-o"></i></a></li>
                                     </ul>
                                 <!-- <ul class="social-links">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -141,12 +144,12 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-6">
+                                <!-- <div class="col-6">
                                     <img class="img-fluid" src="assets/images/blog-details/post-img1.jpg" alt="">
                                 </div>
                                 <div class="col-6">
                                     <img class="img-fluid" src="assets/images/blog-details/post-img2.jpg" alt="">
-                                </div>	
+                                </div>	 -->
                                 <div class="col-lg-12 my-4">
                                 </div>									
                             </div>
@@ -167,7 +170,7 @@
                                             </div>
                                             <div class="desc">
                                                 <h5><a href="#"><?php echo $comments[$i]['nama']; ?>  </a></h5>
-                                                <p class="date">Rating: 5.0 </p>
+                                                <p class="date">Rating: <?= $comments[$i]['rating']?> </p>
                                                 <p class="comment">
                                                     <?= $comments[$i]['ulasan'] ?>
                                                 </p>
@@ -187,7 +190,9 @@
                     <div class="comment-form">
                         <h4>Leave a Reply</h4>
                         <form action="submitUlasan.php" method="post">
+                            <div class="rate"></div>
                             <input type="hidden" name="id_restoran" value="<?= $_SESSION['restoId'] ?>">
+                            <input type="hidden" name="rating" value="">
                             <!-- <div class="form-group form-inline"> -->
                                 <!-- <div class="form-group col-lg-6 col-md-6 name"> -->
                                 <!-- <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'"> -->
@@ -221,5 +226,17 @@
     <script src="assets/js/vendor/jquery.datetimepicker.full.min.js"></script>
     <script src="assets/js/vendor/jquery.nice-select.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/rater.min.js"></script>
+    <script>
+        var options = {
+            max_value: 5,
+            step_size: 1,
+        }
+        $(".rate").rate(options);
+        $(".rate").on("change", function(ev, data){
+            console.log(data.to);
+            $('[name=rating]').val(data.to);
+        });
+    </script>
 </body>
 </html>
