@@ -215,7 +215,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script>
     function myFunction(e) {
         var a = document.getElementById("txtSearch").value;
-        //$("#single-resto").html('');
+        $("#single-resto").html('');
+
 		$.ajax({
 			method: "post",
 			url: "getSearchResto.php",
@@ -236,8 +237,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <h5 class="card-header">${isiResto[index][2]}</h5>
                                 <div class="card-body" >
                                     <b class="card-title">
-                                        &#xf005;
-                                        ${isiResto[index][6]}
+                                        <i class="fa fa-star" style="color:gold"></i> ${isiResto[index][6]}
                                     </b>
                                     <p> ${isiResto[index][5]} <br/>
                                         ${isiResto[index][4]} 
@@ -250,7 +250,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 						ambilGambar(isiResto[index][0]);
 					}
 				} else {
-					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
+					$("#single-resto").append("<h3> Restoran yang Anda cari tidak ada! </h3>");
 				}
 			},  
             failure: function () {
