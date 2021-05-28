@@ -215,8 +215,8 @@
         </div>
     </section>
 
-     <!-- Footer Area Starts -->
-     <footer class="footer-area">
+    <!-- Footer Area Starts -->
+    <footer class="footer-area">
         <div class="footer-widget section-padding">
             <div class="container">
                 <div class="row">
@@ -270,7 +270,7 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-6">
                         <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">food fun</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">food fun</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
                     </div>
                 </div>
