@@ -221,12 +221,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			method: "post",
 			url: "getSearchResto.php",
             data: `key=${a}`,
-            contentType: false,
-            processData: false,
-            async: false,
 			success: function(res){
                 var isiResto = JSON.parse(res); 
-                console.log(isiResto.result);
+
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
 						$("#single-resto").append(`
@@ -240,7 +237,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                         <i class="fa fa-star" style="color:gold"></i> ${isiResto[index][6]}
                                     </b>
                                     <p> ${isiResto[index][5]} <br/>
-                                        ${isiResto[index][4]} 
+                                        0${isiResto[index][4]} 
                                     </p>
                                     <a href="restoran-details.html" class="btn btn-success">Detail Restoran</a>
                                 </div>
@@ -250,7 +247,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 						ambilGambar(isiResto[index][0]);
 					}
 				} else {
-					$("#single-resto").append("<h3> Restoran yang Anda cari tidak ada! </h3>");
+					$("#single-resto").append("<br/><br/><h5 style='color:white'> Restoran yang Anda cari tidak ada! </h3>");
 				}
 			},  
             failure: function () {
