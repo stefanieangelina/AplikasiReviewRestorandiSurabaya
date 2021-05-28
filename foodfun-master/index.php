@@ -441,27 +441,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             }
                         }
 						$("#single-resto").append(`
-                            <div class="food-img">
-                                <img src="resto-image${isiResto[index]['id_restoran']}" class="img-fluid" alt="">
-                            </div>
-                            <div class="food-content">
-                                <div class="d-flex justify-content-between">
-                                    <h5>${isiResto[index]['nama']}</h5>
-                                    <!-- <span class="style-change">$14.50</span> -->
+                            <div class="card" id="resto${isiResto[index]['id_restoran']}">
+                                <div class="resto_image">
+                                    <div id="resto-image${isiResto[index]['id_restoran']}" alt="" class="img-fluid"></div>
                                 </div>
-                                <p class="pt-3">
-                                    <i class="fa fa-star" style="color:gold"></i> ${isiResto[index]['rating']} <br/>
-                                    ${isiResto[index]['alamat']} <br/>
-                                    0${isiResto[index]['no_tlp']} <br/>
-                                </p>
+                                <div class="food-content">
+                                    <div class="d-flex justify-content-between">
+                                        <h5>${isiResto[index]['nama']}</h5>
+                                        <!-- <span class="style-change">$14.50</span> -->
+                                    </div>
+                                    <p class="pt-3">
+                                        <i class="fa fa-star" style="color:gold"></i> ${isiResto[index]['rating']} <br/>
+                                        ${isiResto[index]['alamat']} <br/>
+                                        0${isiResto[index]['no_tlp']} <br/>
+                                    </p>
 
-                                <form method="post">
-                                    <input type="hidden" name="idResto" value="${isiResto[index]['id_restoran']}">
-                                    <button type="submit" name="btnDetail" class="btn btn-success" style="color:white; transform:translateX(40%)">Detail Restoran</button>
-                                </form>
+                                    <form method="post">
+                                        <input type="hidden" name="idResto" value="${isiResto[index]['id_restoran']}">
+                                        <button type="submit" name="btnDetail" class="btn btn-success" style="color:white; transform:translateX(40%)">Detail Restoran</button>
+                                    </form>
+                                </div>
                             </div>
                         `);
-						ambilGambar(isiResto[index][0]);
+						ambilGambar(isiResto[index]['id_restoran']);
 					}
 				} else {
 					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
