@@ -74,12 +74,12 @@
 </head>
 <body>
      <!-- Header Area Starts -->
-	<header class="header-area" style="background-color: black;">
+	<header class="header-area" style="background-color: white;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="index.php"><img src="assets/images/logo/logo2.png" alt="logo"></a>
+                        <a href="index.php"><img src="assets/images/logo/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -90,7 +90,7 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.php" style="color: white;">home</a></li>
+                            <li class="active"><a href="index.php" style="color: black;">home</a></li>
                         </ul>
                     </div>
                 </div>

@@ -77,12 +77,12 @@
     <!-- Preloader End -->
 
     <!-- Header Area Starts -->
-	<header class="header-area">
+	<header class="header-area" style="background-color: black;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="#"><img src="assets/images/logo/logo.png" alt="logo"></a>
+                        <a href="#"><img src="assets/images/logo/logo2.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -93,16 +93,16 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="home.php">Home</a></li>
-                            <li><a href="findRestoran.php">Cari Restoran</a></li>
+                            <li class="active"><a href="home.php" style="color: white;">Home</a></li>
+                            <li><a href="findRestoran.php" style="color: white;">Cari Restoran</a></li>
                             <?php if($_SESSION["role"] == "user") { ?>
-                                <li><a href="myRestoran.php">Restoran Saya</a></li>
+                                <li><a href="myRestoran.php" style="color: white;">Restoran Saya</a></li>
                             <?php } ?>
                             <?php if($_SESSION["role"] == "admin") { ?>
-                                <li><a href="laporan.php">Laporan</a></li>
+                                <li><a href="laporan.php" style="color: white;">Laporan</a></li>
                             <?php } ?>
-                            <li><a href="profile.php">Profil Saya</a></li>
-                            <li><a href="index.php">Logout</a></li>
+                            <li><a href="profile.php" style="color: white;">Profil Saya</a></li>
+                            <li><a href="index.php" style="color: white;">Logout</a></li>
                         </ul>
                     </div>
                 </div>
