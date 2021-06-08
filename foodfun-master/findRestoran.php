@@ -146,8 +146,8 @@
     </section>
     <!-- Banner Area End -->
     
-     <!-- Footer Area Starts -->
-     <footer class="footer-area">
+    <!-- Footer Area Starts -->
+    <footer class="footer-area">
         <div class="footer-widget section-padding">
             <div class="container">
                 <div class="row">
@@ -201,7 +201,7 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-6">
                         <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">food fun</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">food fun</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
                     </div>
                 </div>
@@ -215,17 +215,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script>
     function myFunction(e) {
         var a = document.getElementById("txtSearch").value;
-        //$("#single-resto").html('');
+        $("#single-resto").html('');
+
 		$.ajax({
 			method: "post",
 			url: "getSearchResto.php",
             data: `key=${a}`,
-            contentType: false,
-            processData: false,
-            async: false,
 			success: function(res){
                 var isiResto = JSON.parse(res); 
-                console.log(isiResto.result);
+
 				if(isiResto != "none"){
 					for (let index = 0; index < isiResto.length; index++) {
 						$("#single-resto").append(`
@@ -236,11 +234,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <h5 class="card-header">${isiResto[index][2]}</h5>
                                 <div class="card-body" >
                                     <b class="card-title">
-                                        &#xf005;
-                                        ${isiResto[index][6]}
+                                        <i class="fa fa-star" style="color:gold"></i> ${isiResto[index][6]}
                                     </b>
                                     <p> ${isiResto[index][5]} <br/>
-                                        ${isiResto[index][4]} 
+                                        0${isiResto[index][4]} 
                                     </p>
                                     <a href="restoran-details.html" class="btn btn-success">Detail Restoran</a>
                                 </div>
@@ -250,7 +247,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 						ambilGambar(isiResto[index][0]);
 					}
 				} else {
-					$("#single-resto").append("<h3> Anda belum mendaftarkan resto! </h3>");
+					$("#single-resto").append("<br/><br/><h5 style='color:white'> Restoran yang Anda cari tidak ada! </h3>");
 				}
 			},  
             failure: function () {
